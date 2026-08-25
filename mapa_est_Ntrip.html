@@ -17,7 +17,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_45dfb7f8fa7c9112dc6d0301eb622d2f {
+                #map_bb48c081ba5d34ccd31117c0703970a0 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -54,711 +54,668 @@
 <body>
     
     
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
-    <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
+<script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
 
-    <style>
-        :root {
-            --font-main: 'Poppins', sans-serif;
-            --glass-bg: rgba(244, 246, 249, 0.85);
-            --glass-border: rgba(200, 200, 200, 0.4);
-            --glass-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            --text-main: #334155;
-            --text-muted: #64748b;
-            --primary-color: #e019b8;
-            --secondary-color: #c39bd3;
-            --accent-color: #00bcd4;
-            --pin-border: transparent;
-            --line-fg: #1e293b;
-            --line-bg: rgba(255,255,255,0.9);
-            --text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
-            --popup-bg: rgba(255, 255, 255, 0.95);
-        }
-        .dark-mode {
-            --glass-bg: rgba(30, 41, 59, 0.85);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            --text-main: #f1f5f9;
-            --text-muted: #94a3b8;
-            --primary-color: #00e5ff;
-            --secondary-color: #ff00ff;
-            --accent-color: #ff00ff;
-            --pin-border: #ff00ff;
-            --line-fg: #ff00ff;
-            --line-bg: rgba(15, 23, 42, 0.8);
-            --text-shadow: -1px -1px 0 #1e293b, 1px -1px 0 #1e293b, -1px 1px 0 #1e293b, 1px 1px 0 #1e293b;
-            --popup-bg: rgba(30, 41, 59, 0.95);
-        }
+<style>
+    :root {
+        --font-main: 'Poppins', sans-serif;
+        --glass-bg: rgba(244, 246, 249, 0.85);
+        --glass-border: rgba(200, 200, 200, 0.4);
+        --glass-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        --text-main: #334155;
+        --text-muted: #64748b;
+        --primary-color: #e019b8;
+        --secondary-color: #c39bd3;
+        --accent-color: #00bcd4;
+        --pin-border: transparent;
+        --line-fg: #1e293b;
+        --line-bg: rgba(255,255,255,0.9);
+        --text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+        --popup-bg: rgba(255, 255, 255, 0.95);
+    }
+    .dark-mode {
+        --glass-bg: rgba(30, 41, 59, 0.85);
+        --glass-border: rgba(255, 255, 255, 0.08);
+        --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        --text-main: #f1f5f9;
+        --text-muted: #94a3b8;
+        --primary-color: #00e5ff;
+        --secondary-color: #ff00ff;
+        --accent-color: #ff00ff;
+        --pin-border: #ff00ff;
+        --line-fg: #ff00ff;
+        --line-bg: rgba(15, 23, 42, 0.8);
+        --text-shadow: -1px -1px 0 #1e293b, 1px -1px 0 #1e293b, -1px 1px 0 #1e293b, 1px 1px 0 #1e293b;
+        --popup-bg: rgba(30, 41, 59, 0.95);
+    }
 
-        * { font-family: var(--font-main); box-sizing: border-box; }
-        input, select { background: transparent; color: var(--text-main); }
+    * { font-family: var(--font-main); box-sizing: border-box; }
+    input, select { background: transparent; color: var(--text-main); }
 
-        .glass-panel {
-            background: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow);
-            color: var(--text-main); border-radius: 12px; transition: opacity 0.3s ease, background 0.3s ease;
-        }
+    .glass-panel {
+        background: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+        border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow);
+        color: var(--text-main); border-radius: 12px; transition: opacity 0.3s ease, background 0.3s ease;
+    }
 
-        .nav-btn {
-            background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 10px 15px; border-radius: 50px;
-            font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px;
-            transition: all 0.3s; color: var(--text-main); justify-content: center;
-        }
-        .nav-btn:hover { transform: translateY(-1px); background: rgba(128,128,128,0.1); }
+    .nav-btn {
+        background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 10px 15px; border-radius: 50px;
+        font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px;
+        transition: all 0.3s; color: var(--text-main); justify-content: center;
+    }
+    .nav-btn:hover { transform: translateY(-1px); background: rgba(128,128,128,0.1); }
 
-        .icon-btn {
-            width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            cursor: pointer; font-size: 18px; border: 1px solid var(--glass-border); background: var(--glass-bg);
-            box-shadow: var(--glass-shadow); transition: 0.3s; color: var(--text-main);
-        }
-        .icon-btn:hover { background: rgba(128,128,128,0.1); }
+    .icon-btn {
+        width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
+        cursor: pointer; font-size: 18px; border: 1px solid var(--glass-border); background: var(--glass-bg);
+        box-shadow: var(--glass-shadow); transition: 0.3s; color: var(--text-main);
+    }
+    .icon-btn:hover { background: rgba(128,128,128,0.1); }
 
-        .filter-pill {
-            background: transparent; border: 1px solid var(--text-muted); color: var(--text-muted);
-            padding: 4px 10px; border-radius: 50px; font-size: 11px; font-weight: 500; cursor: pointer; transition: 0.3s;
-        }
-        .filter-pill.active { background: var(--primary-color); border-color: var(--primary-color); color: #fff; }
+    .filter-pill {
+        background: transparent; border: 1px solid var(--text-muted); color: var(--text-muted);
+        padding: 4px 10px; border-radius: 50px; font-size: 11px; font-weight: 500; cursor: pointer; transition: 0.3s;
+    }
+    .filter-pill.active { background: var(--primary-color); border-color: var(--primary-color); color: #fff; }
 
-        .stations-table-row { cursor:pointer; border-bottom: 1px solid rgba(128,128,128,0.15); transition: background 0.2s; }
-        .stations-table-row:hover { background-color: rgba(128,128,128,0.1); }
+    .stations-table-row { cursor:pointer; border-bottom: 1px solid rgba(128,128,128,0.15); transition: background 0.2s; }
+    .stations-table-row:hover { background-color: rgba(128,128,128,0.1); }
 
-        .custom-cluster {
-            background-color: rgba(224, 25, 184, 0.6); color: white; border: none; border-radius: 50%;
-            display: flex; justify-content: center; align-items: center; font-weight: 600; font-size: 14px;
-            transition: all 0.3s ease; box-shadow: 0 0 10px rgba(224, 25, 184, 0.3);
-        }
-        .dark-mode .custom-cluster { background-color: rgba(0, 229, 255, 0.5); box-shadow: 0 0 10px rgba(0, 229, 255, 0.3); }
+    .custom-cluster {
+        background-color: rgba(224, 25, 184, 0.6); color: white; border: none; border-radius: 50%;
+        display: flex; justify-content: center; align-items: center; font-weight: 600; font-size: 14px;
+        transition: all 0.3s ease; box-shadow: 0 0 10px rgba(224, 25, 184, 0.3);
+    }
+    .dark-mode .custom-cluster { background-color: rgba(0, 229, 255, 0.5); box-shadow: 0 0 10px rgba(0, 229, 255, 0.3); }
 
-        .poly-measure { stroke: var(--primary-color); fill: var(--primary-color); transition: stroke 0.3s, fill 0.3s; }
-        .poly-measure-line { stroke: var(--primary-color); transition: stroke 0.3s; }
-        .measure-point { fill: white; stroke: var(--primary-color); transition: stroke 0.3s; }
+    .poly-measure { stroke: var(--primary-color); fill: var(--primary-color); transition: stroke 0.3s, fill 0.3s; }
+    .poly-measure-line { stroke: var(--primary-color); transition: stroke 0.3s; }
+    .measure-point { fill: white; stroke: var(--primary-color); transition: stroke 0.3s; }
 
-        .measure-label {
-            color: var(--text-main); font-size: 11px; font-weight: 700; white-space: nowrap;
-            text-shadow: var(--text-shadow); pointer-events: none; transition: color 0.3s;
-            position: absolute; transform: translate(-50%, -50%);
-        }
-        .measure-center-label {
-            color: var(--primary-color); font-size: 13px; font-weight: 800; text-align: center; line-height: 1.3;
-            white-space: nowrap; text-shadow: var(--text-shadow); pointer-events: none; transition: color 0.3s;
-            position: absolute; transform: translate(-50%, -50%);
-        }
+    .measure-label {
+        color: var(--text-main); font-size: 11px; font-weight: 700; white-space: nowrap;
+        text-shadow: var(--text-shadow); pointer-events: none; transition: color 0.3s;
+        position: absolute; transform: translate(-50%, -50%);
+    }
+    .measure-center-label {
+        color: var(--primary-color); font-size: 13px; font-weight: 800; text-align: center; line-height: 1.3;
+        white-space: nowrap; text-shadow: var(--text-shadow); pointer-events: none; transition: color 0.3s;
+        position: absolute; transform: translate(-50%, -50%);
+    }
 
-        .map-title-editor {
-            font-size: 26px; font-weight: 800; color: var(--text-main); text-shadow: var(--text-shadow);
-            text-transform: uppercase; letter-spacing: 2px; outline: none; background: transparent;
-            transition: 0.3s; padding: 2px 10px; border-radius: 8px; border: 1px solid transparent;
-        }
-        .map-title-editor:hover, .map-title-editor:focus { background: var(--glass-bg); backdrop-filter: blur(5px); border-color: var(--glass-border); }
+    .map-title-editor {
+        font-size: 26px; font-weight: 800; color: var(--text-main); text-shadow: var(--text-shadow);
+        text-transform: uppercase; letter-spacing: 2px; outline: none; background: transparent;
+        transition: 0.3s; padding: 2px 10px; border-radius: 8px; border: 1px solid transparent;
+    }
+    .map-title-editor:hover, .map-title-editor:focus { background: var(--glass-bg); backdrop-filter: blur(5px); border-color: var(--glass-border); }
 
-        .map-subtitle-editor {
-            font-size: 14px; font-weight: 600; color: var(--primary-color); text-shadow: var(--text-shadow);
-            outline: none; padding: 2px 10px; border-radius: 8px; border: 1px solid transparent; margin-top:-5px;
-        }
-        .map-subtitle-editor:hover, .map-subtitle-editor:focus { background: var(--glass-bg); backdrop-filter: blur(5px); border-color: var(--glass-border); }
+    .map-subtitle-editor {
+        font-size: 14px; font-weight: 600; color: var(--primary-color); text-shadow: var(--text-shadow);
+        outline: none; padding: 2px 10px; border-radius: 8px; border: 1px solid transparent; margin-top:-5px;
+    }
+    .map-subtitle-editor:hover, .map-subtitle-editor:focus { background: var(--glass-bg); backdrop-filter: blur(5px); border-color: var(--glass-border); }
 
-        .scale-container { display: flex; flex-direction: column; align-items: center; pointer-events: auto; }
-        .scale-graphic-bar { height: 6px; width: 150px; border: 2px solid var(--text-main); border-top: none; position: relative; margin-bottom: 2px; }
-        #scale_fill { height: 100%; background: var(--primary-color); opacity: 0.6; transition: width 0.1s; }
-        .scale-text-km { font-size: 12px; font-weight: 800; color: var(--text-main); text-shadow: var(--text-shadow); margin-bottom:-3px; pointer-events:none; }
-        .scale-text-frac { font-size: 11px; font-weight: 600; color: var(--text-muted); text-shadow: var(--text-shadow); letter-spacing:1px; pointer-events:none; }
+    .scale-container { display: flex; flex-direction: column; align-items: center; pointer-events: auto; }
+    .scale-graphic-bar { height: 6px; width: 150px; border: 2px solid var(--text-main); border-top: none; position: relative; margin-bottom: 2px; }
+    #scale_fill { height: 100%; background: var(--primary-color); opacity: 0.6; transition: width 0.1s; }
+    .scale-text-km { font-size: 12px; font-weight: 800; color: var(--text-main); text-shadow: var(--text-shadow); margin-bottom:-3px; pointer-events:none; }
+    .scale-text-frac { font-size: 11px; font-weight: 600; color: var(--text-muted); text-shadow: var(--text-shadow); letter-spacing:1px; pointer-events:none; }
 
-        .leaflet-popup-content-wrapper, .leaflet-popup-tip { background: var(--popup-bg) !important; color: var(--text-main) !important; backdrop-filter: blur(10px); border: 1px solid var(--glass-border); }
-        .dark-mode .leaflet-bar a { background-color: var(--glass-bg); color: var(--text-main); border-bottom: 1px solid var(--glass-border); }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: var(--primary-color); border-radius: 10px; }
+    .leaflet-popup-content-wrapper, .leaflet-popup-tip { background: var(--popup-bg) !important; color: var(--text-main) !important; backdrop-filter: blur(10px); border: 1px solid var(--glass-border); }
+    .dark-mode .leaflet-bar a { background-color: var(--glass-bg); color: var(--text-main); border-bottom: 1px solid var(--glass-border); }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background: var(--primary-color); border-radius: 10px; }
 
-        #loader_overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); z-index: 100005;
-            justify-content: center; align-items: center; transition: opacity 0.3s;
-        }
-        .spinner-ring {
-            width: 45px; height: 45px; border: 3px solid var(--glass-border); border-top: 3px solid var(--primary-color); border-right: 3px solid var(--accent-color); border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 15px;
-        }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        @keyframes pulseAura { 0% { transform: scale(0.8); opacity: 0.8; } 100% { transform: scale(2.5); opacity: 0; } }
-        .gps-aura { transform-origin: center; animation: pulseAura 1.5s infinite ease-out; fill: var(--secondary-color); transition: fill 0.3s; }
-        .gps-core { fill: var(--primary-color); transition: fill 0.3s; }
-    </style>
+    #loader_overlay {
+        display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); z-index: 100005;
+        justify-content: center; align-items: center; transition: opacity 0.3s;
+    }
+    .spinner-ring {
+        width: 45px; height: 45px; border: 3px solid var(--glass-border); border-top: 3px solid var(--primary-color); border-right: 3px solid var(--accent-color); border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 15px;
+    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    @keyframes pulseAura { 0% { transform: scale(0.8); opacity: 0.8; } 100% { transform: scale(2.5); opacity: 0; } }
+    .gps-aura { transform-origin: center; animation: pulseAura 1.5s infinite ease-out; fill: var(--secondary-color); transition: fill 0.3s; }
+    .gps-core { fill: var(--primary-color); transition: fill 0.3s; }
+</style>
 
-    <div id="zen_overlay" onclick="exitZenMode()" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:9997; cursor:pointer;" title="Haz clic en cualquier parte para restaurar la interfaz"></div>
-    <div id="loader_overlay">
-        <div class="glass-panel" style="padding: 30px 50px; display: flex; flex-direction: column; align-items: center; text-align: center;">
-            <div class="spinner-ring"></div>
-            <div id="loader_title" style="font-size: 13px; font-weight: 700; color: var(--primary-color); letter-spacing: 1px;">CALCULANDO RUTAS</div>
-            <div id="loader_subtitle" style="font-size: 11px; font-weight: 500; color: var(--text-muted); margin-top: 6px;">esto puede tardar un momento...</div>
-        </div>
+<div id="zen_overlay" onclick="exitZenMode()" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:9997; cursor:pointer;" title="Haz clic en cualquier parte para restaurar la interfaz"></div>
+
+<div id="loader_overlay">
+    <div class="glass-panel" style="padding: 30px 50px; display: flex; flex-direction: column; align-items: center; text-align: center;">
+        <div class="spinner-ring"></div>
+        <div id="loader_title" style="font-size: 13px; font-weight: 700; color: var(--primary-color); letter-spacing: 1px;">BUSCANDO SEÑAL GPS</div>
+        <div id="loader_subtitle" style="font-size: 11px; font-weight: 500; color: var(--text-muted); margin-top: 6px;">por favor espera...</div>
+    </div>
+</div>
+
+<div id="report_titles" style="display:none; position:fixed; top:20px; left:50%; transform:translateX(-50%); z-index:9998; text-align:center; flex-direction:column; align-items:center;">
+    <div contenteditable="true" spellcheck="false" class="map-title-editor" onfocus="if(this.innerText.trim()=='TÍTULO DEL MAPA') this.innerText='';" onblur="if(this.innerText.trim()=='') this.innerText='TÍTULO DEL MAPA';">TÍTULO DEL MAPA</div>
+    <div contenteditable="true" spellcheck="false" class="map-subtitle-editor" onfocus="if(this.innerText.trim()=='Subtítulo descriptivo (opcional)') this.innerText='';" onblur="if(this.innerText.trim()=='') this.innerText='Subtítulo descriptivo (opcional)';">Subtítulo descriptivo (opcional)</div>
+</div>
+
+<div class="scale-container" style="position:fixed; bottom:20px; left:50%; transform:translateX(-50%); z-index:9998;">
+    <div class="scale-graphic-bar"><div id="scale_fill"></div></div>
+    <div id="scale_val_km" class="scale-text-km">10 km</div>
+    <div style="display:flex; align-items:center; gap:5px;">
+        <div id="scale_val_frac" class="scale-text-frac">Escala 1:50.000</div>
+        <span id="btn_edit_scale" style="cursor:pointer; font-size:12px; opacity:0.8;" title="Fijar Escala Manual">✏️</span>
     </div>
 
-    <div id="report_titles" style="display:none; position:fixed; top:20px; left:50%; transform:translateX(-50%); z-index:9998; text-align:center; flex-direction:column; align-items:center;">
-        <div contenteditable="true" spellcheck="false" class="map-title-editor" onfocus="if(this.innerText.trim()=='TÍTULO DEL MAPA') this.innerText='';" onblur="if(this.innerText.trim()=='') this.innerText='TÍTULO DEL MAPA';">TÍTULO DEL MAPA</div>
-        <div contenteditable="true" spellcheck="false" class="map-subtitle-editor" onfocus="if(this.innerText.trim()=='Subtítulo descriptivo (opcional)') this.innerText='';" onblur="if(this.innerText.trim()=='') this.innerText='Subtítulo descriptivo (opcional)';">Subtítulo descriptivo (opcional)</div>
+    <div id="scale_edit_panel" class="glass-panel" style="display:none; position:absolute; bottom:100%; margin-bottom:5px; padding:6px 12px; flex-direction:row; align-items:center; gap:6px;">
+        <span style="font-size:11px; font-weight:600;">Escala 1 :</span>
+        <input type="number" id="custom_scale_input" placeholder="50000" style="width:70px; font-size:11px; outline:none; border:1px solid var(--glass-border); border-radius:4px; padding:2px;">
+        <button onclick="applyCustomScale()" class="nav-btn" style="padding:2px 10px; font-size:10px; min-height:0; margin:0; background:var(--primary-color); color:white; border:none;">Ir</button>
     </div>
+</div>
 
-    <div class="scale-container" style="position:fixed; bottom:20px; left:50%; transform:translateX(-50%); z-index:9998;">
-        <div class="scale-graphic-bar"><div id="scale_fill"></div></div>
-        <div id="scale_val_km" class="scale-text-km">10 km</div>
-        <div style="display:flex; align-items:center; gap:5px;">
-            <div id="scale_val_frac" class="scale-text-frac">Escala 1:50.000</div>
-            <span id="btn_edit_scale" style="cursor:pointer; font-size:12px; opacity:0.8;" title="Fijar Escala Manual">✏️</span>
+<div class="ui-container" style="position:fixed; top:15px; left:60px; z-index:9999; display:flex; flex-direction:column; gap:8px;">
+    <div style="display:flex; gap:8px; align-items:center;">
+        <div class="glass-panel" style="display:flex; align-items:center; padding:8px 15px; border-radius:50px;">
+            <span style="font-size:15px; margin-right:8px;">🔍</span>
+            <input type="text" id="buscador" list="lista_estaciones" placeholder="Buscar..." style="border:none; outline:none; font-size:13px; width:130px; font-weight:500;">
+            <datalist id="lista_estaciones"><option value="BTOR"></option><option value="MSOL"></option><option value="MVDE"></option><option value="SCCF"></option><option value="BALB"></option><option value="CASC"></option><option value="BPOL"></option><option value="EMMB"></option><option value="CCMC"></option><option value="ZALD"></option><option value="SPNC"></option><option value="SQMS"></option><option value="BTES"></option><option value="BESP"></option><option value="ESPZ"></option><option value="BOXE"></option><option value="ANTU"></option><option value="SQMH"></option><option value="BESC"></option><option value="BMDO"></option><option value="BRTC"></option><option value="TMCO"></option><option value="BOLB"></option><option value="DMHC"></option><option value="CONZ"></option><option value="CNCN"></option><option value="PTMT"></option><option value="SCOL"></option><option value="SNTI"></option><option value="TALC"></option><option value="VLDV"></option><option value="UTAR"></option><option value="UDEC"></option><option value="CBAA"></option><option value="CHDA"></option><option value="CSOM"></option><option value="GTA1"></option><option value="MRCG"></option><option value="PECL"></option><option value="PCCL"></option><option value="PEDR"></option><option value="PTRO"></option><option value="PTAR"></option><option value="PLVP"></option><option value="TAMR"></option><option value="SBLL"></option><option value="ROB1"></option><option value="TRPD"></option><option value="XPLO"></option><option value="CCSN"></option><option value="DGF1"></option><option value="USCL"></option><option value="UAIB"></option><option value="SANT"></option><option value="ANTC"></option><option value="ANTF"></option><option value="IQQE"></option><option value="TEJA"></option><option value="CPPO"></option><option value="OSOR"></option><option value="ANTO"></option><option value="LLAY"></option><option value="TEMU"></option><option value="CLMA"></option></datalist>
         </div>
-        <div id="scale_edit_panel" class="glass-panel" style="display:none; position:absolute; bottom:100%; margin-bottom:5px; padding:6px 12px; flex-direction:row; align-items:center; gap:6px;">
-            <span style="font-size:11px; font-weight:600;">Escala 1 :</span>
-            <input type="number" id="custom_scale_input" placeholder="50000" style="width:70px; font-size:11px; outline:none; border:1px solid var(--glass-border); border-radius:4px; padding:2px;">
-            <button onclick="applyCustomScale()" class="nav-btn" style="padding:2px 10px; font-size:10px; min-height:0; margin:0; background:var(--primary-color); color:white; border:none;">Ir</button>
+        <div class="icon-btn" onclick="togglePanel('filtros_panel')" title="Filtros">⚙️</div>
+        <div class="icon-btn" id="theme_toggle" title="Modo Oscuro"><span id="theme_icon" style="filter: grayscale(100%); opacity: 0.8; transition: 0.3s;">☀️</span></div>
+    </div>
+    <div id="filtros_panel" class="glass-panel" style="display:none; padding: 12px; gap:6px; flex-wrap:wrap; max-width: 250px;">
+        <span style="font-size:11px; font-weight:600; width:100%;">Filtrar Redes:</span>
+        <button class="filter-pill active" onclick="toggleNetwork('GA', this)">GA</button><button class="filter-pill active" onclick="toggleNetwork('JPL', this)">JPL</button><button class="filter-pill active" onclick="toggleNetwork('Geocom', this)">Geocom</button><button class="filter-pill active" onclick="toggleNetwork('IGS', this)">IGS</button><button class="filter-pill active" onclick="toggleNetwork('CSN', this)">CSN</button>
+    </div>
+    <div id="stations_table_container" class="glass-panel" style="display:none; padding:15px; max-height: 40vh; overflow-y: auto; width: 310px; position:relative;">
+        <span onclick="document.getElementById('stations_table_container').style.display='none'" style="position:absolute; top:10px; right:15px; cursor:pointer; font-weight:bold; opacity:0.6;">✖</span>
+        <div id="table_content"></div>
+    </div>
+</div>
+
+<div class="ui-container" style="position:fixed; top:15px; right:15px; z-index:9999; display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+    <div class="icon-btn" onclick="togglePanel('capas_panel')" title="Administrar Capas y Exportar">📚</div>
+    <div class="icon-btn" onclick="toggleMeasureMode()" id="btn_measure" title="Medir Área y Perímetro">📏</div>
+    <div class="icon-btn" onclick="activateZenMode()" title="Modo Informe (Limpia la pantalla)">📸</div>
+
+    <div id="capas_panel" class="glass-panel" style="display:none; padding:12px 15px; flex-direction:column; gap:8px; font-size:12px; font-weight:500; position:absolute; top:45px; right:45px; width: 220px;"></div>
+
+    <div id="measure_panel" class="glass-panel" style="display:none; padding:15px; position:absolute; top:95px; right:45px; width:240px; font-size:11px;">
+        <div style="font-weight:700; color:var(--primary-color); margin-bottom:8px; text-align:center; font-size:12px;">📐 MODO MEDICIÓN</div>
+        <div style="color:var(--text-muted); text-align:center; margin-bottom:10px;">Haz clic en el mapa para trazar.</div>
+        <div id="measure_points_list"></div>
+        <input type="text" id="poly_name_input" placeholder="Nombre (ej. Zona A)" style="width:100%; border:1px solid var(--glass-border); border-radius:6px; padding:6px; outline:none; margin-bottom:8px;">
+        <div style="display:flex; gap:5px;">
+            <button onclick="clearMeasurement()" class="nav-btn" style="flex:1; padding:6px 0;">Limpiar</button>
+            <button id="save_poly_btn" onclick="savePolygon()" class="nav-btn" style="flex:1; padding:6px 0; background:var(--primary-color); color:white; border:none;" disabled>Guardar</button>
         </div>
     </div>
+</div>
 
-    <div class="ui-container" style="position:fixed; top:15px; left:60px; z-index:9999; display:flex; flex-direction:column; gap:8px;">
-        <div style="display:flex; gap:8px; align-items:center;">
-            <div class="glass-panel" style="display:flex; align-items:center; padding:8px 15px; border-radius:50px;">
-                <span style="font-size:15px; margin-right:8px;">🔍</span>
-                <input type="text" id="buscador" list="lista_estaciones" placeholder="Buscar..." style="border:none; outline:none; font-size:13px; width:130px; font-weight:500;">
-                <datalist id="lista_estaciones"></datalist>
+<div class="ui-container" style="position:fixed; bottom:25px; left:20px; z-index:9999; display:flex; flex-direction:column; gap:8px; align-items:flex-start;">
+    <div id="buffer_panel" class="glass-panel" style="display:none; padding:12px 18px; display:flex; align-items:center; gap:10px;">
+        <label style="font-weight:600; font-size:12px;">Radio Cobertura (km):</label>
+        <input type="number" id="buffer_input" min="0" step="0.1" value="0" style="width:70px; border:1px solid var(--glass-border); border-radius:6px; padding:4px 8px; outline:none; font-weight:bold;">
+    </div>
+    <div class="icon-btn" onclick="togglePanel('buffer_panel')" title="Cobertura">⭕</div>
+</div>
+
+<div class="ui-container" style="position:fixed; bottom:25px; right:20px; z-index:9999; display:flex; flex-direction:column; gap:8px; align-items:flex-end; width: 250px;">
+    <div id="gps_panel" class="glass-panel" style="display:none; padding:15px; flex-direction:column; gap:12px; width:100%;">
+        <div style="font-size:10px; color:var(--text-muted); text-align:center; font-weight:700; letter-spacing:0.5px; border-bottom:1px solid var(--glass-border); padding-bottom:5px;">
+            📡 ESTACIONES CERCANAS EN TIEMPO REAL
+        </div>
+        <div style="display:flex; align-items:center; justify-content:space-between; font-size:12px; font-weight:600; padding:0 2px;">
+            <span>Conectar a:</span>
+            <div style="display:flex; gap:5px; align-items:center;">
+                <input type="number" id="num_stations" min="0" value="0" style="width:50px; text-align:center; border-radius:6px; padding:4px; outline:none; border:1px solid var(--glass-border); font-weight:bold;">
             </div>
-            <div class="icon-btn" onclick="togglePanel('filtros_panel')" title="Filtros">⚙️</div>
-            <div class="icon-btn" id="theme_toggle" title="Modo Oscuro"><span id="theme_icon" style="filter: grayscale(100%); opacity: 0.8; transition: 0.3s;">☀️</span></div>
         </div>
-        <div id="filtros_panel" class="glass-panel" style="display:none; padding: 12px; gap:6px; flex-wrap:wrap; max-width: 250px;">
-            <span style="font-size:11px; font-weight:600; width:100%;">Filtrar Redes:</span>
-            </div>
-        <div id="stations_table_container" class="glass-panel" style="display:none; padding:15px; max-height: 40vh; overflow-y: auto; width: 310px; position:relative;">
-            <span onclick="document.getElementById('stations_table_container').style.display='none'" style="position:absolute; top:10px; right:15px; cursor:pointer; font-weight:bold; opacity:0.6;">✖</span>
-            <div id="table_content"></div>
+        <div style="display:flex; gap:5px;">
+            <button id="center_me_btn" class="nav-btn" style="flex:1; padding:8px 0; font-size:11px;">🎯 Yo</button>
+            <button id="center_station_btn" class="nav-btn" style="flex:1; padding:8px 0; font-size:11px;">📡 Est.</button>
         </div>
+        <button onclick="document.getElementById('stations_table_container').style.display='block'" class="nav-btn" style="padding:8px 0; font-size:11px; width:100%; border:1px solid var(--primary-color);">📋 Ver Tabla</button>
     </div>
 
-    <div class="ui-container" style="position:fixed; top:15px; right:15px; z-index:9999; display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
-        <div class="icon-btn" onclick="togglePanel('capas_panel')" title="Administrar Capas y Exportar">📚</div>
-        <div class="icon-btn" onclick="toggleMeasureMode()" id="btn_measure" title="Medir Área y Perímetro">📏</div>
-        <div class="icon-btn" onclick="activateZenMode()" title="Modo Informe (Limpia la pantalla)">📸</div>
-
-        <div id="capas_panel" class="glass-panel" style="display:none; padding:12px 15px; flex-direction:column; gap:8px; font-size:12px; font-weight:500; position:absolute; top:45px; right:45px; width: 220px;"></div>
-
-        <div id="measure_panel" class="glass-panel" style="display:none; padding:15px; position:absolute; top:95px; right:45px; width:240px; font-size:11px;">
-            <div style="font-weight:700; color:var(--primary-color); margin-bottom:8px; text-align:center; font-size:12px;">📐 MODO MEDICIÓN</div>
-            <div style="color:var(--text-muted); text-align:center; margin-bottom:10px;">Haz clic en el mapa para trazar.</div>
-            <div id="measure_points_list"></div>
-            <input type="text" id="poly_name_input" placeholder="Nombre (ej. Zona A)" style="width:100%; border:1px solid var(--glass-border); border-radius:6px; padding:6px; outline:none; margin-bottom:8px;">
-            <div style="display:flex; gap:5px;">
-                <button onclick="clearMeasurement()" class="nav-btn" style="flex:1; padding:6px 0;">Limpiar</button>
-                <button id="save_poly_btn" onclick="savePolygon()" class="nav-btn" style="flex:1; padding:6px 0; background:var(--primary-color); color:white; border:none;" disabled>Guardar</button>
-            </div>
-        </div>
+    <div class="nav-btn" id="go_btn" style="background: var(--primary-color); color: white; border:none; box-shadow: 0 4px 15px rgba(224, 25, 184, 0.4); border-radius: 50px; padding: 12px 20px;">
+        <span id="btn_icon" style="font-size:16px;">📍</span> <span id="btn_text" style="margin-left:5px;">Radar GPS</span>
     </div>
+</div>
 
-    <div class="ui-container" style="position:fixed; bottom:25px; left:20px; z-index:9999; display:flex; flex-direction:column; gap:8px; align-items:flex-start;">
-        <div id="buffer_panel" class="glass-panel" style="display:none; padding:12px 18px; display:flex; align-items:center; gap:10px;">
-            <label style="font-weight:600; font-size:12px;">Radio Cobertura (km):</label>
-            <input type="number" id="buffer_input" min="0" step="0.1" value="0" style="width:70px; border:1px solid var(--glass-border); border-radius:6px; padding:4px 8px; outline:none; font-weight:bold;">
-        </div>
-        <div class="icon-btn" onclick="togglePanel('buffer_panel')" title="Cobertura">⭕</div>
-    </div>
+<script>
+    var datos_estaciones = { "BTOR": { lat: -32.65, lon: -71.16000000000003, red: "Geocom", sats: "GPS+GLO+GAL+BDS+QZS" }, "MSOL": { lat: -32.65, lon: -71.12, red: "Geocom", sats: "GPS+GLO" }, "MVDE": { lat: -26.55, lon: -70.32, red: "Geocom", sats: "GPS+GLO+GAL|+BDS+QZS" }, "SCCF": { lat: -33.63, lon: -71.57, red: "Geocom", sats: "GPS+GLO+GAL+BDS+QZS" }, "BALB": { lat: -23.44, lon: -69.51999999999998, red: "Geocom", sats: "GPS+GLO+GAL+BDS+QZS" }, "CASC": { lat: -20.96, lon: -68.67000000000002, red: "Geocom", sats: "GPS+GLO+GAL+BDS+QZS" }, "BPOL": { lat: -33.16, lon: -70.82, red: "Geocom", sats: "GPS+GLO+GAL" }, "EMMB": { lat: -23.42, lon: -70.06, red: "Geocom", sats: "GPS+GLO+GAL+BDS+QZS" }, "CCMC": { lat: -27.52, lon: -70.27999999999997, red: "Geocom", sats: "GPS+GLO" }, "ZALD": { lat: -24.21, lon: -69.07, red: "Geocom", sats: "GPS+GLO+GAL+BDS+QZS" }, "SPNC": { lat: -22.79, lon: -69.25999999999999, red: "Geocom", sats: "GPS+GLO+GAL" }, "SQMS": { lat: -23.54, lon: -68.37, red: "Geocom", sats: "GPS+GLO+GAL+BDS+QZS" }, "BTES": { lat: -22.95, lon: -69.07, red: "Geocom", sats: "GPS+GLO+GAL+BDS+QZS" }, "BESP": { lat: -31.4, lon: -71.11000000000001, red: "Geocom", sats: "GPS+GLO+GAL+BDS+QZS" }, "ESPZ": { lat: -22.97, lon: -69.07, red: "Geocom", sats: "GPS+GLO+GAL+BDS+QZS" }, "BOXE": { lat: -23.07, lon: -69.10000000000002, red: "Geocom", sats: "GPS+GLO+GAL+BDS+QZS" }, "ANTU": { lat: -22.64, lon: -69.88, red: "Geocom", sats: "GPS+GLO+GAL+BDS+QZS" }, "SQMH": { lat: -23.5, lon: -68.30000000000001, red: "Geocom", sats: "GPS+GLO+GAL+BDS+QZS" }, "BESC": { lat: -24.28, lon: -69.08999999999997, red: "Geocom", sats: "GPS+GLO+GAL+BDS+QZS" }, "BMDO": { lat: -26.82, lon: -69.23000000000002, red: "Geocom", sats: "GPS+GLO+GAL+BDS+QZS" }, "BRTC": { lat: -22.22, lon: -68.87, red: "Geocom", sats: "GPS+GLO+GAL+BDS+QZS" }, "TMCO": { lat: -38.75, lon: -72.63, red: "Geocom", sats: "GPS+GLO+GAL+BDS+QZS" }, "BOLB": { lat: -33.17, lon: -70.29000000000002, red: "Geocom", sats: "GPS+GLO+GAL+BDS+QZS" }, "DMHC": { lat: -22.44, lon: -68.92000000000002, red: "Geocom", sats: "GPS+GLO" }, "CONZ": { lat: -36.84, lon: -73.01999999999998, red: "Geocom", sats: "GPS+GLO+GAL+BDS+QZS" }, "CNCN": { lat: -32.93, lon: -71.49000000000001, red: "Geocom", sats: "GPS+GLO+GAL" }, "PTMT": { lat: -41.46, lon: -72.95999999999998, red: "Geocom", sats: "GPS+GLO+GAL+BDS+QZS" }, "SCOL": { lat: -33.43, lon: -70.57999999999998, red: "Geocom", sats: "GPS+GLO+GAL+BDS+QZS" }, "SNTI": { lat: -33.44, lon: -70.61000000000001, red: "Geocom", sats: "GPS+GLO+GAL+BDS+QZS" }, "TALC": { lat: -35.41, lon: -71.63999999999999, red: "Geocom", sats: "GPS+GLO" }, "VLDV": { lat: -39.84, lon: -73.20999999999998, red: "Geocom", sats: "GPS+GLO" }, "UTAR": { lat: -18.49, lon: -70.30000000000001, red: "CSN", sats: "GPS+GLO" }, "UDEC": { lat: -37.47, lon: -72.33999999999997, red: "CSN", sats: "GPS+GLO" }, "CBAA": { lat: -22.75, lon: -68.44999999999999, red: "CSN", sats: "GPS+GLO" }, "CHDA": { lat: -33.99, lon: -70.61000000000001, red: "CSN", sats: "GPS+GLO" }, "CSOM": { lat: -52.78, lon: -69.22000000000003, red: "CSN", sats: "GPS+GLO" }, "GTA1": { lat: -20.99, lon: -70.18, red: "CSN", sats: "GPS+GLO" }, "MRCG": { lat: -26.84, lon: -69.13, red: "CSN", sats: "GPS+GLO" }, "PECL": { lat: -37.68, lon: -73.64999999999998, red: "CSN", sats: "GPS+GLO" }, "PCCL": { lat: -18.45, lon: -70.11000000000001, red: "CSN", sats: "GPS+GLO" }, "PEDR": { lat: -30.84, lon: -70.69, red: "CSN", sats: "GPS+GLO" }, "PTRO": { lat: -41.14, lon: -72.39999999999998, red: "CSN", sats: "GPS+GLO" }, "PTAR": { lat: -53.16, lon: -71.05000000000001, red: "CSN", sats: "GPS+GLO" }, "PLVP": { lat: -37.15, lon: -73.57999999999998, red: "CSN", sats: "GPS+GLO" }, "TAMR": { lat: -27.59, lon: -70.31, red: "CSN", sats: "GPS+GLO" }, "SBLL": { lat: -34.79, lon: -70.77999999999997, red: "CSN", sats: "GPS+GLO" }, "ROB1": { lat: -32.98, lon: -71.00999999999999, red: "CSN", sats: "GPS+GLO" }, "TRPD": { lat: -33.02, lon: -71.63999999999999, red: "CSN", sats: "GPS+GLO" }, "XPLO": { lat: -46.48, lon: -73.19, red: "CSN", sats: "GPS+GLO" }, "CCSN": { lat: -33.46, lon: -70.66000000000003, red: "CSN", sats: "GPS+GLO" }, "DGF1": { lat: -33.46, lon: -70.66000000000003, red: "CSN", sats: "GPS+GLO" }, "USCL": { lat: -33.45, lon: -70.68, red: "IGS", sats: "GPS+GLO+GAL+BDS+QZS" }, "UAIB": { lat: -33.49, lon: -70.50999999999999, red: "CSN", sats: "GPS+GLO" }, "SANT": { lat: -33.15, lon: -70.67000000000002, red: "JPL", sats: "IGS" }, "ANTC": { lat: -37.34, lon: -71.52999999999997, red: "IGS", sats: "GPS+GLO" }, "ANTF": { lat: -23.7, lon: -70.42000000000002, red: "IGS", sats: "GPS+GLO+GAL+BDS" }, "IQQE": { lat: -20.27, lon: -70.13, red: "IGS", sats: "GPS+GLO" }, "TEJA": { lat: -39.81, lon: -73.25, red: "IGS", sats: "GPS+GLO+GAL+BDS" }, "CPPO": { lat: -27.39, lon: -70.32, red: "GA", sats: "GPS+GLO+GAL+BDS" }, "OSOR": { lat: -40.9, lon: -72.41000000000003, red: "GA", sats: "GPS+GLO+GAL+BDS" }, "ANTO": { lat: -23.66, lon: -70.38999999999999, red: "GA", sats: "GPS+GLO+GAL+BDS" }, "LLAY": { lat: -32.84, lon: -70.94, red: "GA", sats: "GPS+GLO+GAL+BDS" }, "TEMU": { lat: -38.72, lon: -72.66000000000003, red: "GA", sats: "GPS+GLO+GAL+BDS" }, "CLMA": { lat: -22.44, lon: -68.88, red: "GA", sats: "GPS+GLO+GAL+BDS" }, };
+    var ml = null, userMarker = null, clusterGroup = null, coverageGroup = null, measureGroup = null;
+    var linesBg = [], linesFg = [], labels = [];
+    var watchId = null, isTracking = false, isDark = false, isMeasuring = false;
+    var globalUserLatLng = null, globalNearestCoords = null, currentRadius = 0;
+    var activeNetworks = new Set(['GA', 'JPL', 'Geocom', 'IGS', 'CSN']);
+    var measurePts = [];
+    var savedPolygonsData = {}; var polyIdCounter = 0;
+    var themeColors = {};
 
-    <div class="ui-container" style="position:fixed; bottom:25px; right:20px; z-index:9999; display:flex; flex-direction:column; gap:8px; align-items:flex-end; width: 250px;">
-        <div id="gps_panel" class="glass-panel" style="display:none; padding:15px; flex-direction:column; gap:12px; width:100%;">
-            <div style="font-size:10px; color:var(--text-muted); text-align:center; font-weight:700; letter-spacing:0.5px; border-bottom:1px solid var(--glass-border); padding-bottom:5px;">
-                📡 ESTACIONES CERCANAS EN TIEMPO REAL
-            </div>
-            <div style="display:flex; align-items:center; justify-content:space-between; font-size:12px; font-weight:600; padding:0 2px;">
-                <span>Conectar a:</span>
-                <div style="display:flex; gap:5px; align-items:center;">
-                    <input type="number" id="num_stations" min="0" value="0" style="width:40px; text-align:center; border-radius:6px; padding:4px; outline:none; border:1px solid var(--glass-border);">
-                    <button id="btn_connect_stations" class="nav-btn" style="padding: 4px 10px; font-size: 11px; margin: 0; background: var(--primary-color); color: white; border: none;">Conectar</button>
-                </div>
-            </div>
-            <div style="display:flex; gap:5px;">
-                <button id="center_me_btn" class="nav-btn" style="flex:1; padding:8px 0; font-size:11px;">🎯 Yo</button>
-                <button id="center_station_btn" class="nav-btn" style="flex:1; padding:8px 0; font-size:11px;">📡 Est.</button>
-            </div>
-            <button onclick="document.getElementById('stations_table_container').style.display='block'" class="nav-btn" style="padding:8px 0; font-size:11px; width:100%; border:1px solid var(--primary-color);">📋 Ver Tabla</button>
-        </div>
+    function updateThemeCache() {
+        var cs = getComputedStyle(document.body);
+        themeColors.lFg = cs.getPropertyValue('--line-fg').trim();
+        themeColors.lBg = cs.getPropertyValue('--line-bg').trim();
+        themeColors.pC = cs.getPropertyValue('--primary-color').trim();
+        themeColors.tS = cs.getPropertyValue('--text-shadow').trim();
+    }
 
-        <div class="nav-btn" id="go_btn" style="background: var(--primary-color); color: white; border:none; box-shadow: 0 4px 15px rgba(224, 25, 184, 0.4); border-radius: 50px; padding: 12px 20px;">
-            <span id="btn_icon" style="font-size:16px;">📍</span> <span id="btn_text" style="margin-left:5px;">Radar GPS</span>
-        </div>
-    </div>
+    function latLonToUTM(lat, lon) {
+        var a = 6378137.0, ecc = 0.0033528106647474805, k0 = 0.9996;
+        var latRad = lat * Math.PI / 180.0, lonRad = lon * Math.PI / 180.0;
+        var zone = Math.floor((lon + 180.0) / 6) + 1;
+        var lonOrigin = (zone - 1) * 6 - 180 + 3;
+        var lonOriginRad = lonOrigin * Math.PI / 180.0;
+        var eccPrimeSquared = (ecc) / (1 - ecc);
+        var N = a / Math.sqrt(1 - ecc * Math.sin(latRad) * Math.sin(latRad));
+        var T = Math.tan(latRad) * Math.tan(latRad);
+        var C = eccPrimeSquared * Math.cos(latRad) * Math.cos(latRad);
+        var A = Math.cos(latRad) * (lonRad - lonOriginRad);
+        var M = a * ((1 - ecc / 4 - 3 * ecc * ecc / 64 - 5 * ecc * ecc * ecc / 256) * latRad - (3 * ecc / 8 + 3 * ecc * ecc / 32 + 45 * ecc * ecc * ecc / 1024) * Math.sin(2 * latRad) + (15 * ecc * ecc / 256 + 45 * ecc * ecc * ecc / 1024) * Math.sin(4 * latRad) - (35 * ecc * ecc * ecc / 3072) * Math.sin(6 * latRad));
+        var e = k0 * N * (A + (1 - T + C) * A * A * A / 6 + (5 - 18 * T + T * T + 72 * C - 58 * eccPrimeSquared) * A * A * A * A * A / 120) + 500000.0;
+        var n = k0 * (M + N * Math.tan(latRad) * (A * A / 2 + (5 - T + 9 * C + 4 * C * C) * A * A * A * A / 24 + (61 - 58 * T + T * T + 600 * C - 330 * eccPrimeSquared) * A * A * A * A * A * A / 720));
+        if (lat < 0) n += 10000000.0;
+        var letters = "CDEFGHJKLMNPQRSTUVWXX";
+        var lIdx = Math.max(0, Math.min(20, Math.floor((lat + 80) / 8)));
+        return { e: e, n: n, zone: zone, letter: letters.charAt(lIdx) };
+    }
 
-    <script>
-        // Carga de datos de forma limpia desde Python
-        const datos_estaciones = {"BTOR": {"lat": -32.65, "lon": -71.16000000000003, "red": "Geocom", "sats": "GPS+GLO+GAL+BDS+QZS"}, "MSOL": {"lat": -32.65, "lon": -71.12, "red": "Geocom", "sats": "GPS+GLO"}, "MVDE": {"lat": -26.55, "lon": -70.32, "red": "Geocom", "sats": "GPS+GLO+GAL+BDS+QZS"}, "SCCF": {"lat": -33.63, "lon": -71.57, "red": "Geocom", "sats": "GPS+GLO+GAL+BDS+QZS"}, "BALB": {"lat": -23.44, "lon": -69.51999999999998, "red": "Geocom", "sats": "GPS+GLO+GAL+BDS+QZS"}, "CASC": {"lat": -20.96, "lon": -68.67000000000002, "red": "Geocom", "sats": "GPS+GLO+GAL+BDS+QZS"}, "BPOL": {"lat": -33.16, "lon": -70.82, "red": "Geocom", "sats": "GPS+GLO+GAL"}, "EMMB": {"lat": -23.42, "lon": -70.06, "red": "Geocom", "sats": "GPS+GLO+GAL+BDS+QZS"}, "CCMC": {"lat": -27.52, "lon": -70.27999999999997, "red": "Geocom", "sats": "GPS+GLO"}, "ZALD": {"lat": -24.21, "lon": -69.07, "red": "Geocom", "sats": "GPS+GLO+GAL+BDS+QZS"}, "SPNC": {"lat": -22.79, "lon": -69.25999999999999, "red": "Geocom", "sats": "GPS+GLO+GAL"}, "SQMS": {"lat": -23.54, "lon": -68.37, "red": "Geocom", "sats": "GPS+GLO+GAL+BDS+QZS"}, "BTES": {"lat": -22.95, "lon": -69.07, "red": "Geocom", "sats": "GPS+GLO+GAL+BDS+QZS"}, "BESP": {"lat": -31.4, "lon": -71.11000000000001, "red": "Geocom", "sats": "GPS+GLO+GAL+BDS+QZS"}, "ESPZ": {"lat": -22.97, "lon": -69.07, "red": "Geocom", "sats": "GPS+GLO+GAL+BDS+QZS"}, "BOXE": {"lat": -23.07, "lon": -69.10000000000002, "red": "Geocom", "sats": "GPS+GLO+GAL+BDS+QZS"}, "ANTU": {"lat": -22.64, "lon": -69.88, "red": "Geocom", "sats": "GPS+GLO+GAL+BDS+QZS"}, "SQMH": {"lat": -23.5, "lon": -68.30000000000001, "red": "Geocom", "sats": "GPS+GLO+GAL+BDS+QZS"}, "BESC": {"lat": -24.28, "lon": -69.08999999999997, "red": "Geocom", "sats": "GPS+GLO+GAL+BDS+QZS"}, "BMDO": {"lat": -26.82, "lon": -69.23000000000002, "red": "Geocom", "sats": "GPS+GLO+GAL+BDS+QZS"}, "BRTC": {"lat": -22.22, "lon": -68.87, "red": "Geocom", "sats": "GPS+GLO+GAL+BDS+QZS"}, "TMCO": {"lat": -38.75, "lon": -72.63, "red": "Geocom", "sats": "GPS+GLO+GAL+BDS+QZS"}, "BOLB": {"lat": -33.17, "lon": -70.29000000000002, "red": "Geocom", "sats": "GPS+GLO+GAL+BDS+QZS"}, "DMHC": {"lat": -22.44, "lon": -68.92000000000002, "red": "Geocom", "sats": "GPS+GLO"}, "CONZ": {"lat": -36.84, "lon": -73.01999999999998, "red": "Geocom", "sats": "GPS+GLO+GAL+BDS+QZS"}, "CNCN": {"lat": -32.93, "lon": -71.49000000000001, "red": "Geocom", "sats": "GPS+GLO+GAL"}, "PTMT": {"lat": -41.46, "lon": -72.95999999999998, "red": "Geocom", "sats": "GPS+GLO+GAL+BDS+QZS"}, "SCOL": {"lat": -33.43, "lon": -70.57999999999998, "red": "Geocom", "sats": "GPS+GLO+GAL+BDS+QZS"}, "SNTI": {"lat": -33.44, "lon": -70.61000000000001, "red": "Geocom", "sats": "GPS+GLO+GAL+BDS+QZS"}, "TALC": {"lat": -35.41, "lon": -71.63999999999999, "red": "Geocom", "sats": "GPS+GLO"}, "VLDV": {"lat": -39.84, "lon": -73.20999999999998, "red": "Geocom", "sats": "GPS+GLO"}, "UTAR": {"lat": -18.49, "lon": -70.30000000000001, "red": "CSN", "sats": "GPS+GLO"}, "UDEC": {"lat": -37.47, "lon": -72.33999999999997, "red": "CSN", "sats": "GPS+GLO"}, "CBAA": {"lat": -22.75, "lon": -68.44999999999999, "red": "CSN", "sats": "GPS+GLO"}, "CHDA": {"lat": -33.99, "lon": -70.61000000000001, "red": "CSN", "sats": "GPS+GLO"}, "CSOM": {"lat": -52.78, "lon": -69.22000000000003, "red": "CSN", "sats": "GPS+GLO"}, "GTA1": {"lat": -20.99, "lon": -70.18, "red": "CSN", "sats": "GPS+GLO"}, "MRCG": {"lat": -26.84, "lon": -69.13, "red": "CSN", "sats": "GPS+GLO"}, "PECL": {"lat": -37.68, "lon": -73.64999999999998, "red": "CSN", "sats": "GPS+GLO"}, "PCCL": {"lat": -18.45, "lon": -70.11000000000001, "red": "CSN", "sats": "GPS+GLO"}, "PEDR": {"lat": -30.84, "lon": -70.69, "red": "CSN", "sats": "GPS+GLO"}, "PTRO": {"lat": -41.14, "lon": -72.39999999999998, "red": "CSN", "sats": "GPS+GLO"}, "PTAR": {"lat": -53.16, "lon": -71.05000000000001, "red": "CSN", "sats": "GPS+GLO"}, "PLVP": {"lat": -37.15, "lon": -73.57999999999998, "red": "CSN", "sats": "GPS+GLO"}, "TAMR": {"lat": -27.59, "lon": -70.31, "red": "CSN", "sats": "GPS+GLO"}, "SBLL": {"lat": -34.79, "lon": -70.77999999999997, "red": "CSN", "sats": "GPS+GLO"}, "ROB1": {"lat": -32.98, "lon": -71.00999999999999, "red": "CSN", "sats": "GPS+GLO"}, "TRPD": {"lat": -33.02, "lon": -71.63999999999999, "red": "CSN", "sats": "GPS+GLO"}, "XPLO": {"lat": -46.48, "lon": -73.19, "red": "CSN", "sats": "GPS+GLO"}, "CCSN": {"lat": -33.46, "lon": -70.66000000000003, "red": "CSN", "sats": "GPS+GLO"}, "DGF1": {"lat": -33.46, "lon": -70.66000000000003, "red": "CSN", "sats": "GPS+GLO"}, "USCL": {"lat": -33.45, "lon": -70.68, "red": "IGS", "sats": "GPS+GLO+GAL+BDS+QZS"}, "UAIB": {"lat": -33.49, "lon": -70.50999999999999, "red": "CSN", "sats": "GPS+GLO"}, "SANT": {"lat": -33.15, "lon": -70.67000000000002, "red": "JPL", "sats": "IGS"}, "ANTC": {"lat": -37.34, "lon": -71.52999999999997, "red": "IGS", "sats": "GPS+GLO"}, "ANTF": {"lat": -23.7, "lon": -70.42000000000002, "red": "IGS", "sats": "GPS+GLO+GAL+BDS"}, "IQQE": {"lat": -20.27, "lon": -70.13, "red": "IGS", "sats": "GPS+GLO"}, "TEJA": {"lat": -39.81, "lon": -73.25, "red": "IGS", "sats": "GPS+GLO+GAL+BDS"}, "CPPO": {"lat": -27.39, "lon": -70.32, "red": "GA", "sats": "GPS+GLO+GAL+BDS"}, "OSOR": {"lat": -40.9, "lon": -72.41000000000003, "red": "GA", "sats": "GPS+GLO+GAL+BDS"}, "ANTO": {"lat": -23.66, "lon": -70.38999999999999, "red": "GA", "sats": "GPS+GLO+GAL+BDS"}, "LLAY": {"lat": -32.84, "lon": -70.94, "red": "GA", "sats": "GPS+GLO+GAL+BDS"}, "TEMU": {"lat": -38.72, "lon": -72.66000000000003, "red": "GA", "sats": "GPS+GLO+GAL+BDS"}, "CLMA": {"lat": -22.44, "lon": -68.88, "red": "GA", "sats": "GPS+GLO+GAL+BDS"}};
-        const redesDisponibles = ["IGS", "CSN", "JPL", "Geocom", "GA"];
-        let activeNetworks = new Set(redesDisponibles);
+    function fastHaversine(lat1, lon1, lat2, lon2) {
+        var p = 0.017453292519943295;
+        var c = Math.cos;
+        var a = 0.5 - c((lat2 - lat1) * p)/2 + c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p))/2;
+        return 12742 * Math.asin(Math.sqrt(a)) * 1000;
+    }
 
-        // Variables Globales
-        let ml = null, userMarker = null, clusterGroup = null, coverageGroup = null, measureGroup = null;
-        let linesBg = [], linesFg = [], labels = [];
-        let watchId = null, isTracking = false, isDark = false, isMeasuring = false;
-        let globalUserLatLng = null, globalNearestCoords = null, currentRadius = 0;
-        let measurePts = [];
-        let savedPolygonsData = {}; 
-        let polyIdCounter = 0;
-        let themeColors = {};
+    window.activateZenMode = function() {
+        document.querySelectorAll('.ui-container').forEach(el => el.style.opacity = '0');
+        var zCtrl = document.querySelector('.leaflet-control-zoom'); if(zCtrl) zCtrl.style.display = 'none';
+        document.getElementById('zen_overlay').style.display = 'block';
+        document.getElementById('report_titles').style.display = 'flex';
+    }
+    window.exitZenMode = function() {
+        document.querySelectorAll('.ui-container').forEach(el => el.style.opacity = '1');
+        var zCtrl = document.querySelector('.leaflet-control-zoom'); if(zCtrl) zCtrl.style.display = 'block';
+        document.getElementById('zen_overlay').style.display = 'none';
+        document.getElementById('report_titles').style.display = 'none';
+    }
 
-        // Generación dinámica de UI para opciones de búsqueda
-        const datalist = document.getElementById('lista_estaciones');
-        for (const nombre in datos_estaciones) {
-            const option = document.createElement('option');
-            option.value = nombre;
-            datalist.appendChild(option);
-        }
+    function updateScale() {
+        if(!ml) return;
+        var center = ml.getCenter(); var zoom = ml.getZoom();
+        var metersPerPixel = (Math.cos(center.lat * Math.PI / 180) * 2 * Math.PI * 6378137) / (256 * Math.pow(2, zoom));
+        var scaleFraction = Math.round(metersPerPixel * 3779.527);
+        document.getElementById('scale_val_frac').innerText = 'Escala 1:' + scaleFraction.toLocaleString('es-CL');
 
-        // Generación dinámica de botones de redes
-        const filtrosPanel = document.getElementById('filtros_panel');
-        redesDisponibles.forEach(red => {
-            const btn = document.createElement('button');
-            btn.className = 'filter-pill active';
-            btn.textContent = red;
-            btn.onclick = function() { toggleNetwork(red, this); };
-            filtrosPanel.appendChild(btn);
+        var maxWidth = 150; var maxMeters = maxWidth * metersPerPixel;
+        var pow10 = Math.pow(10, (Math.floor(maxMeters) + '').length - 1);
+        var d = maxMeters / pow10;
+        var roundMeters = pow10 * (d >= 10 ? 10 : d >= 5 ? 5 : d >= 3 ? 3 : d >= 2 ? 2 : 1);
+
+        var ratio = roundMeters / maxMeters;
+        document.getElementById('scale_fill').style.width = (ratio * 100) + '%';
+        document.getElementById('scale_val_km').innerText = roundMeters >= 1000 ? (roundMeters / 1000) + ' km' : roundMeters + ' m';
+    }
+
+    document.getElementById('btn_edit_scale').addEventListener('click', function() {
+        var pnl = document.getElementById('scale_edit_panel'); pnl.style.display = pnl.style.display === 'none' ? 'flex' : 'none';
+    });
+
+    window.applyCustomScale = function() {
+        var desiredScale = parseFloat(document.getElementById('custom_scale_input').value);
+        if (!desiredScale || desiredScale <= 0 || !ml) return;
+        var center = ml.getCenter();
+        var constant = Math.cos(center.lat * Math.PI / 180) * 2 * Math.PI * 6378137 * 3779.527;
+        var exactZoom = Math.log2(constant / (256 * desiredScale));
+        ml.options.zoomSnap = 0; ml.setZoom(exactZoom);
+        document.getElementById('scale_edit_panel').style.display = 'none';
+    };
+
+    window.exportCSV = function() {
+        var keys = Object.keys(savedPolygonsData);
+        if(keys.length === 0) return alert("No hay polígonos para exportar.");
+
+        keys.forEach(function(id) {
+            var poly = savedPolygonsData[id];
+            var csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "Poligono," + poly.name + "\n";
+            csvContent += "Area (km2)," + poly.area + "\n";
+            csvContent += "Perimetro (km)," + poly.perim + "\n\n";
+            csvContent += "Vertice,Latitud,Longitud,UTM_Este,UTM_Norte,Zona_UTM\n";
+
+            poly.pts.forEach(function(pt, index) {
+                var utm = latLonToUTM(pt.lat, pt.lng);
+                csvContent += (index + 1) + "," + pt.lat.toFixed(6) + "," + pt.lng.toFixed(6) + "," + utm.e.toFixed(2) + "," + utm.n.toFixed(2) + "," + utm.zone + utm.letter + "\n";
+            });
+
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", poly.name.replace(/\s+/g, '_') + ".csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         });
+    };
 
-        function updateThemeCache() {
-            const cs = getComputedStyle(document.body);
-            themeColors.lFg = cs.getPropertyValue('--line-fg').trim();
-            themeColors.lBg = cs.getPropertyValue('--line-bg').trim();
-            themeColors.pC = cs.getPropertyValue('--primary-color').trim();
-            themeColors.tS = cs.getPropertyValue('--text-shadow').trim();
+    var svgPin = '<svg height="28" width="28" viewBox="0 0 24 24" style="filter: drop-shadow(0px 3px 3px rgba(0,0,0,0.2));"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" style="fill: var(--primary-color); stroke: var(--pin-border); stroke-width: 1px;" /><circle cx="12" cy="9" r="3.5" fill="white"/></svg>';
+    var uIconHtml = '<svg height="40" width="40" viewBox="0 0 40 40" style="overflow:visible;"><circle cx="20" cy="20" r="14" class="gps-aura"/><circle cx="20" cy="20" r="7" class="gps-core" stroke="white" stroke-width="2.5" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));"/></svg>';
+
+    function togglePanel(id) { var el = document.getElementById(id); el.style.display = (el.style.display === 'none' || el.style.display === '') ? 'flex' : 'none'; }
+    window.goToLocation = function(lat, lon, isUser) { if(ml) { ml.setView([lat, lon], 15); if(!isUser) ml.eachLayer(function(l) { if(l.getLatLng && l.getLatLng().lat === lat && l.getLatLng().lng === lon && l.getPopup()) l.openPopup(); }); } };
+
+    function calculateArea(pts) {
+        var r = 6378137, area = 0, d2r = Math.PI / 180;
+        for (var i = 0; i < pts.length; i++) {
+            var p1 = pts[i], p2 = pts[(i + 1) % pts.length];
+            area += (p2.lng - p1.lng) * d2r * (2 + Math.sin(p1.lat * d2r) + Math.sin(p2.lat * d2r));
         }
+        return Math.abs(area * r * r / 2.0);
+    }
 
-        function latLonToUTM(lat, lon) {
-            const a = 6378137.0, ecc = 0.0033528106647474805, k0 = 0.9996;
-            const latRad = lat * Math.PI / 180.0, lonRad = lon * Math.PI / 180.0;
-            const zone = Math.floor((lon + 180.0) / 6) + 1;
-            const lonOrigin = (zone - 1) * 6 - 180 + 3;
-            const lonOriginRad = lonOrigin * Math.PI / 180.0;
-            const eccPrimeSquared = (ecc) / (1 - ecc);
-            const N = a / Math.sqrt(1 - ecc * Math.sin(latRad) * Math.sin(latRad));
-            const T = Math.tan(latRad) * Math.tan(latRad);
-            const C = eccPrimeSquared * Math.cos(latRad) * Math.cos(latRad);
-            const A = Math.cos(latRad) * (lonRad - lonOriginRad);
-            const M = a * ((1 - ecc / 4 - 3 * ecc * ecc / 64 - 5 * ecc * ecc * ecc / 256) * latRad - (3 * ecc / 8 + 3 * ecc * ecc / 32 + 45 * ecc * ecc * ecc / 1024) * Math.sin(2 * latRad) + (15 * ecc * ecc / 256 + 45 * ecc * ecc * ecc / 1024) * Math.sin(4 * latRad) - (35 * ecc * ecc * ecc / 3072) * Math.sin(6 * latRad));
-            const e = k0 * N * (A + (1 - T + C) * A * A * A / 6 + (5 - 18 * T + T * T + 72 * C - 58 * eccPrimeSquared) * A * A * A * A * A / 120) + 500000.0;
-            const n = k0 * (M + N * Math.tan(latRad) * (A * A / 2 + (5 - T + 9 * C + 4 * C * C) * A * A * A * A / 24 + (61 - 58 * T + T * T + 600 * C - 330 * eccPrimeSquared) * A * A * A * A * A * A / 720)) + (lat < 0 ? 10000000.0 : 0);
-            const letters = "CDEFGHJKLMNPQRSTUVWXX";
-            const lIdx = Math.max(0, Math.min(20, Math.floor((lat + 80) / 8)));
-            return { e: e, n: n, zone: zone, letter: letters.charAt(lIdx) };
+    window.toggleMeasureMode = function() {
+        isMeasuring = !isMeasuring;
+        var btn = document.getElementById('btn_measure'), pnl = document.getElementById('measure_panel');
+        if(isMeasuring) {
+            btn.style.background = 'var(--primary-color)'; btn.style.color = 'white';
+            pnl.style.display = 'block'; ml._container.style.cursor = 'crosshair';
+            ml.on('click', onMapClickMeasure);
+        } else {
+            btn.style.background = ''; btn.style.color = '';
+            pnl.style.display = 'none'; ml._container.style.cursor = '';
+            ml.off('click', onMapClickMeasure); clearMeasurement();
         }
+    };
 
-        function fastHaversine(lat1, lon1, lat2, lon2) {
-            const p = 0.017453292519943295;
-            const c = Math.cos;
-            const a = 0.5 - c((lat2 - lat1) * p)/2 + c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p))/2;
-            return 12742 * Math.asin(Math.sqrt(a)) * 1000;
-        }
+    function onMapClickMeasure(e) { measurePts.push(e.latlng); drawMeasurement(); }
+    window.clearMeasurement = function() { measurePts = []; drawMeasurement(); };
 
-        window.activateZenMode = function() {
-            document.querySelectorAll('.ui-container').forEach(el => el.style.opacity = '0');
-            const zCtrl = document.querySelector('.leaflet-control-zoom');
-            if(zCtrl) zCtrl.style.display = 'none';
-            document.getElementById('zen_overlay').style.display = 'block';
-            document.getElementById('report_titles').style.display = 'flex';
-        }
+    function drawEdgeLabel(p1, p2, dist, targetGroup) {
+        var mid = L.latLng((p1.lat + p2.lat)/2, (p1.lng + p2.lng)/2);
+        var pt1 = ml.latLngToLayerPoint(p1), pt2 = ml.latLngToLayerPoint(p2);
+        var angle = Math.atan2(pt2.y - pt1.y, pt2.x - pt1.x) * (180 / Math.PI);
+        if (angle > 90 || angle < -90) angle += 180;
+        var html = '<div class="measure-label" style="transform: translate(-50%, -50%) rotate(' + angle + 'deg); padding-bottom:10px;">' + (dist/1000).toFixed(2) + ' km</div>';
+        L.marker(mid, {icon: L.divIcon({html: html, className: '', iconSize: [0,0]})}).addTo(targetGroup);
+    }
 
-        window.exitZenMode = function() {
-            document.querySelectorAll('.ui-container').forEach(el => el.style.opacity = '1');
-            const zCtrl = document.querySelector('.leaflet-control-zoom'); 
-            if(zCtrl) zCtrl.style.display = 'block';
-            document.getElementById('zen_overlay').style.display = 'none';
-            document.getElementById('report_titles').style.display = 'none';
-        }
-
-        function updateScale() {
-            if(!ml) return;
-            const center = ml.getCenter(); 
-            const zoom = ml.getZoom();
-            const metersPerPixel = (Math.cos(center.lat * Math.PI / 180) * 2 * Math.PI * 6378137) / (256 * Math.pow(2, zoom));
-            const scaleFraction = Math.round(metersPerPixel * 3779.527);
-            document.getElementById('scale_val_frac').innerText = 'Escala 1:' + scaleFraction.toLocaleString('es-CL');
-
-            const maxWidth = 150; 
-            const maxMeters = maxWidth * metersPerPixel;
-            const pow10 = Math.pow(10, (Math.floor(maxMeters) + '').length - 1);
-            const d = maxMeters / pow10;
-            const roundMeters = pow10 * (d >= 10 ? 10 : d >= 5 ? 5 : d >= 3 ? 3 : d >= 2 ? 2 : 1);
-
-            const ratio = roundMeters / maxMeters;
-            document.getElementById('scale_fill').style.width = (ratio * 100) + '%';
-            document.getElementById('scale_val_km').innerText = roundMeters >= 1000 ? (roundMeters / 1000) + ' km' : roundMeters + ' m';
-        }
-
-        document.getElementById('btn_edit_scale').addEventListener('click', function() {
-            const pnl = document.getElementById('scale_edit_panel'); 
-            pnl.style.display = pnl.style.display === 'none' ? 'flex' : 'none';
+    function updateMeasurePanel() {
+        var html = '<div style="max-height:130px; overflow-y:auto; margin-bottom:8px; text-align:left;">';
+        measurePts.forEach(function(pt, i) {
+            var utm = latLonToUTM(pt.lat, pt.lng);
+            html += '<div style="border-bottom:1px solid var(--glass-border); padding:5px 0;"><div style="font-weight:600; color:var(--primary-color); display:flex; justify-content:space-between;"><span>📍 Pto '+(i+1)+'</span><span style="cursor:pointer;" onclick="goToLocation('+pt.lat+', '+pt.lng+', true)">🎯 Ir</span></div><div style="font-size:9.5px; line-height:1.3; color:var(--text-main);">Lat: '+pt.lat.toFixed(5)+', Lon: '+pt.lng.toFixed(5)+'<br>UTM: '+utm.e.toFixed(1)+' E, '+utm.n.toFixed(1)+' N (Z '+utm.zone+utm.letter+')</div></div>';
         });
+        document.getElementById('measure_points_list').innerHTML = html + '</div>';
+        var saveBtn = document.getElementById('save_poly_btn');
+        saveBtn.disabled = measurePts.length < 3; saveBtn.style.opacity = measurePts.length < 3 ? '0.5' : '1';
+    }
 
-        window.applyCustomScale = function() {
-            const desiredScale = parseFloat(document.getElementById('custom_scale_input').value);
-            if (!desiredScale || desiredScale <= 0 || !ml) return;
-            const center = ml.getCenter();
-            const constant = Math.cos(center.lat * Math.PI / 180) * 2 * Math.PI * 6378137 * 3779.527;
-            const exactZoom = Math.log2(constant / (256 * desiredScale));
-            ml.options.zoomSnap = 0; 
-            ml.setZoom(exactZoom);
-            document.getElementById('scale_edit_panel').style.display = 'none';
-        };
+    function drawMeasurement() {
+        if(!measureGroup) return;
+        measureGroup.clearLayers(); updateMeasurePanel();
+        if(measurePts.length === 0) return;
 
-        window.exportCSV = function() {
-            const keys = Object.keys(savedPolygonsData);
-            if(keys.length === 0) return alert("No hay polígonos para exportar.");
+        measurePts.forEach(function(pt) { L.circleMarker(pt, {radius: 4, className: 'measure-point', fillOpacity: 1, weight: 2}).addTo(measureGroup); });
 
-            keys.forEach(function(id) {
-                const poly = savedPolygonsData[id];
-                let csvContent = "data:text/csv;charset=utf-8,";
-                csvContent += "Poligono," + poly.name + "\n";
-                csvContent += "Area (km2)," + poly.area + "\n";
-                csvContent += "Perimetro (km)," + poly.perim + "\n\n";
-                csvContent += "Vertice,Latitud,Longitud,UTM_Este,UTM_Norte,Zona_UTM\n";
-
-                poly.pts.forEach(function(pt, index) {
-                    const utm = latLonToUTM(pt.lat, pt.lng);
-                    csvContent += (index + 1) + "," + pt.lat.toFixed(6) + "," + pt.lng.toFixed(6) + "," + utm.e.toFixed(2) + "," + utm.n.toFixed(2) + "," + utm.zone + utm.letter + "\n";
-                });
-
-                const encodedUri = encodeURI(csvContent);
-                const link = document.createElement("a");
-                link.setAttribute("href", encodedUri);
-                link.setAttribute("download", poly.name.replace(/\s+/g, '_') + ".csv");
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            });
-        };
-
-        const svgPin = '<svg height="28" width="28" viewBox="0 0 24 24" style="filter: drop-shadow(0px 3px 3px rgba(0,0,0,0.2));"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" style="fill: var(--primary-color); stroke: var(--pin-border); stroke-width: 1px; transition: all 0.3s;" /><circle cx="12" cy="9" r="3.5" fill="white"/></svg>';
-        const uIconHtml = '<svg height="40" width="40" viewBox="0 0 40 40" style="overflow:visible;"><circle cx="20" cy="20" r="14" class="gps-aura"/><circle cx="20" cy="20" r="7" class="gps-core" stroke="white" stroke-width="2.5" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));"/></svg>';
-
-        function togglePanel(id) { 
-            const el = document.getElementById(id); 
-            el.style.display = (el.style.display === 'none' || el.style.display === '') ? 'flex' : 'none'; 
-        }
-
-        window.goToLocation = function(lat, lon, isUser) { 
-            if(ml) { 
-                ml.setView([lat, lon], 15); 
-                if(!isUser) ml.eachLayer(function(l) { 
-                    if(l.getLatLng && l.getLatLng().lat === lat && l.getLatLng().lng === lon && l.getPopup()) l.openPopup(); 
-                }); 
-            } 
-        };
-
-        function calculateArea(pts) {
-            const r = 6378137, d2r = Math.PI / 180;
-            let area = 0;
-            for (let i = 0; i < pts.length; i++) {
-                const p1 = pts[i], p2 = pts[(i + 1) % pts.length];
-                area += (p2.lng - p1.lng) * d2r * (2 + Math.sin(p1.lat * d2r) + Math.sin(p2.lat * d2r));
+        if(measurePts.length >= 3) {
+            var poly = L.polygon(measurePts, {className: 'poly-measure', weight: 2.5, fillOpacity: 0.1}).addTo(measureGroup);
+            var totalDist = 0;
+            for(var i=0; i<measurePts.length; i++) {
+                var p1 = measurePts[i], p2 = measurePts[(i+1)%measurePts.length], d = p1.distanceTo(p2);
+                totalDist += d; drawEdgeLabel(p1, p2, d, measureGroup);
             }
-            return Math.abs(area * r * r / 2.0);
+            var centerHtml = '<div class="measure-center-label">Área: ' + (calculateArea(measurePts)/1000000).toFixed(2) + ' km²<br>Perímetro: ' + (totalDist/1000).toFixed(2) + ' km</div>';
+            L.marker(poly.getBounds().getCenter(), {icon: L.divIcon({html: centerHtml, className: '', iconSize: [0,0]})}).addTo(measureGroup);
+        } else if(measurePts.length === 2) {
+            L.polyline(measurePts, {className: 'poly-measure-line', weight: 2.5}).addTo(measureGroup);
+            drawEdgeLabel(measurePts[0], measurePts[1], measurePts[0].distanceTo(measurePts[1]), measureGroup);
         }
+    }
 
-        window.toggleMeasureMode = function() {
-            isMeasuring = !isMeasuring;
-            const btn = document.getElementById('btn_measure'), pnl = document.getElementById('measure_panel');
-            if(isMeasuring) {
-                btn.style.background = 'var(--primary-color)'; btn.style.color = 'white';
-                pnl.style.display = 'block'; ml._container.style.cursor = 'crosshair';
-                ml.on('click', onMapClickMeasure);
-            } else {
-                btn.style.background = ''; btn.style.color = '';
-                pnl.style.display = 'none'; ml._container.style.cursor = '';
-                ml.off('click', onMapClickMeasure); clearMeasurement();
+    window.updateLayersPanel = function() {
+        var html = '<label style="display:flex; align-items:center; gap:8px; cursor:pointer;"><input type="checkbox" id="chk_estaciones" '+(ml.hasLayer(clusterGroup)?'checked':'')+' onchange="if(this.checked) ml.addLayer(clusterGroup); else ml.removeLayer(clusterGroup);" style="accent-color: var(--primary-color);"> 📡 Estaciones</label><label style="display:flex; align-items:center; gap:8px; cursor:pointer;"><input type="checkbox" id="chk_cobertura" '+(ml.hasLayer(coverageGroup)?'checked':'')+' onchange="if(this.checked) ml.addLayer(coverageGroup); else ml.removeLayer(coverageGroup);" style="accent-color: var(--primary-color);"> 🔵 Cobertura</label>';
+
+        if(Object.keys(savedPolygonsData).length > 0) {
+            html += '<hr style="border:0; border-top:1px solid var(--glass-border); margin:5px 0;">';
+            for(var id in savedPolygonsData) {
+                var poly = savedPolygonsData[id], isCh = ml.hasLayer(poly.group) ? 'checked' : '';
+                html += '<div style="display:flex; justify-content:space-between; align-items:center;"><label style="display:flex; align-items:center; gap:8px; cursor:pointer;"><input type="checkbox" '+isCh+' onchange="toggleSavedPoly(\''+id+'\', this)" style="accent-color: var(--primary-color);"> 📐 '+poly.name+'</label><span onclick="deleteSavedPoly(\''+id+'\')" style="cursor:pointer; color:#ff4757; font-size:14px;" title="Eliminar">🗑️</span></div>';
             }
-        };
-
-        function onMapClickMeasure(e) { measurePts.push(e.latlng); drawMeasurement(); }
-        window.clearMeasurement = function() { measurePts = []; drawMeasurement(); };
-
-        function drawEdgeLabel(p1, p2, dist, targetGroup) {
-            const mid = L.latLng((p1.lat + p2.lat)/2, (p1.lng + p2.lng)/2);
-            const pt1 = ml.latLngToLayerPoint(p1), pt2 = ml.latLngToLayerPoint(p2);
-            let angle = Math.atan2(pt2.y - pt1.y, pt2.x - pt1.x) * (180 / Math.PI);
-            if (angle > 90 || angle < -90) angle += 180;
-            const html = '<div class="measure-label" style="transform: translate(-50%, -50%) rotate(' + angle + 'deg); padding-bottom:10px;">' + (dist/1000).toFixed(2) + ' km</div>';
-            L.marker(mid, {icon: L.divIcon({html: html, className: '', iconSize: [0,0]})}).addTo(targetGroup);
+            html += '<button onclick="exportCSV()" class="nav-btn" style="margin-top:10px; width:100%; border:1px solid var(--primary-color); padding:5px 0;">💾 Descargar CSV</button>';
         }
+        document.getElementById('capas_panel').innerHTML = html;
+    }
 
-        function updateMeasurePanel() {
-            let html = '<div style="max-height:130px; overflow-y:auto; margin-bottom:8px; text-align:left;">';
-            measurePts.forEach(function(pt, i) {
-                const utm = latLonToUTM(pt.lat, pt.lng);
-                html += '<div style="border-bottom:1px solid var(--glass-border); padding:5px 0;"><div style="font-weight:600; color:var(--primary-color); display:flex; justify-content:space-between;"><span>📍 Pto '+(i+1)+'</span><span style="cursor:pointer;" onclick="goToLocation('+pt.lat+', '+pt.lng+', true)">🎯 Ir</span></div><div style="font-size:9.5px; line-height:1.3; color:var(--text-main);">Lat: '+pt.lat.toFixed(5)+', Lon: '+pt.lng.toFixed(5)+'<br>UTM: '+utm.e.toFixed(1)+' E, '+utm.n.toFixed(1)+' N (Z '+utm.zone+utm.letter+')</div></div>';
-            });
-            document.getElementById('measure_points_list').innerHTML = html + '</div>';
-            const saveBtn = document.getElementById('save_poly_btn');
-            saveBtn.disabled = measurePts.length < 3; saveBtn.style.opacity = measurePts.length < 3 ? '0.5' : '1';
+    window.savePolygon = function() {
+        var name = document.getElementById('poly_name_input').value || 'Zona ' + (polyIdCounter+1);
+        var pId = 'poly_' + polyIdCounter++;
+        var newGrp = L.layerGroup().addTo(ml);
+
+        var areaKm2 = (calculateArea(measurePts)/1000000).toFixed(2);
+        var totalDist = 0;
+        var poly = L.polygon(measurePts, {className: 'poly-measure', weight: 2.5, fillOpacity: 0.15}).addTo(newGrp);
+
+        for(var i=0; i<measurePts.length; i++) {
+            var p1 = measurePts[i], p2 = measurePts[(i+1)%measurePts.length], d = p1.distanceTo(p2);
+            totalDist += d; drawEdgeLabel(p1, p2, d, newGrp);
+            L.circleMarker(p1, {radius: 4, className: 'measure-point', fillOpacity: 1, weight: 2}).addTo(newGrp);
         }
+        var perimKm = (totalDist/1000).toFixed(2);
 
-        function drawMeasurement() {
-            if(!measureGroup) return;
-            measureGroup.clearLayers(); updateMeasurePanel();
-            if(measurePts.length === 0) return;
+        var centerHtml = '<div class="measure-center-label">Área: ' + areaKm2 + ' km²<br>Perímetro: ' + perimKm + ' km</div>';
+        L.marker(poly.getBounds().getCenter(), {icon: L.divIcon({html: centerHtml, className: '', iconSize: [0,0]})}).addTo(newGrp);
 
-            measurePts.forEach(function(pt) { L.circleMarker(pt, {radius: 4, className: 'measure-point', fillOpacity: 1, weight: 2}).addTo(measureGroup); });
+        var popupHtml = '<div style="font-family:var(--font-main); font-size:11px; min-width:200px;">';
+        popupHtml += '<h4 style="margin:0 0 5px 0; color:var(--primary-color); border-bottom:1px solid var(--glass-border); padding-bottom:5px;">📐 ' + name + '</h4>';
+        popupHtml += '<b>Área:</b> ' + areaKm2 + ' km²<br><b>Perímetro:</b> ' + perimKm + ' km<br><br>';
+        popupHtml += '<div style="max-height:120px; overflow-y:auto;">';
+        measurePts.forEach(function(pt, i) {
+            var utm = latLonToUTM(pt.lat, pt.lng);
+            popupHtml += '<b>Vértice '+(i+1)+':</b> ' + pt.lat.toFixed(5) + ', ' + pt.lng.toFixed(5) + '<br>';
+            popupHtml += '<span style="color:var(--text-muted); font-size:9.5px;">UTM: '+utm.e.toFixed(1)+' E, '+utm.n.toFixed(1)+' N (Z '+utm.zone+utm.letter+')</span><br><hr style="border:0; border-top:1px solid var(--glass-border); margin:3px 0;">';
+        });
+        popupHtml += '</div></div>';
+        poly.bindPopup(popupHtml);
 
-            if(measurePts.length >= 3) {
-                const poly = L.polygon(measurePts, {className: 'poly-measure', weight: 2.5, fillOpacity: 0.1}).addTo(measureGroup);
-                let totalDist = 0;
-                for(let i=0; i<measurePts.length; i++) {
-                    const p1 = measurePts[i], p2 = measurePts[(i+1)%measurePts.length], d = p1.distanceTo(p2);
-                    totalDist += d; drawEdgeLabel(p1, p2, d, measureGroup);
-                }
-                const centerHtml = '<div class="measure-center-label">Área: ' + (calculateArea(measurePts)/1000000).toFixed(2) + ' km²<br>Perímetro: ' + (totalDist/1000).toFixed(2) + ' km</div>';
-                L.marker(poly.getBounds().getCenter(), {icon: L.divIcon({html: centerHtml, className: '', iconSize: [0,0]})}).addTo(measureGroup);
-            } else if(measurePts.length === 2) {
-                L.polyline(measurePts, {className: 'poly-measure-line', weight: 2.5}).addTo(measureGroup);
-                drawEdgeLabel(measurePts[0], measurePts[1], measurePts[0].distanceTo(measurePts[1]), measureGroup);
-            }
-        }
+        savedPolygonsData[pId] = { group: newGrp, name: name, area: areaKm2, perim: perimKm, pts: measurePts.slice() };
+        updateLayersPanel(); clearMeasurement(); document.getElementById('poly_name_input').value = '';
+    }
 
-        window.updateLayersPanel = function() {
-            let html = '<label style="display:flex; align-items:center; gap:8px; cursor:pointer;"><input type="checkbox" id="chk_estaciones" '+(ml.hasLayer(clusterGroup)?'checked':'')+' onchange="if(this.checked) ml.addLayer(clusterGroup); else ml.removeLayer(clusterGroup);" style="accent-color: var(--primary-color);"> 📡 Estaciones</label><label style="display:flex; align-items:center; gap:8px; cursor:pointer;"><input type="checkbox" id="chk_cobertura" '+(ml.hasLayer(coverageGroup)?'checked':'')+' onchange="if(this.checked) ml.addLayer(coverageGroup); else ml.removeLayer(coverageGroup);" style="accent-color: var(--primary-color);"> 🔵 Cobertura</label>';
+    window.toggleSavedPoly = function(id, cb) { if(cb.checked) ml.addLayer(savedPolygonsData[id].group); else ml.removeLayer(savedPolygonsData[id].group); }
+    window.deleteSavedPoly = function(id) { ml.removeLayer(savedPolygonsData[id].group); delete savedPolygonsData[id]; updateLayersPanel(); }
 
-            if(Object.keys(savedPolygonsData).length > 0) {
-                html += '<hr style="border:0; border-top:1px solid var(--glass-border); margin:5px 0;">';
-                for(let id in savedPolygonsData) {
-                    const poly = savedPolygonsData[id], isCh = ml.hasLayer(poly.group) ? 'checked' : '';
-                    html += '<div style="display:flex; justify-content:space-between; align-items:center;"><label style="display:flex; align-items:center; gap:8px; cursor:pointer;"><input type="checkbox" '+isCh+' onchange="toggleSavedPoly(\''+id+'\', this)" style="accent-color: var(--primary-color);"> 📐 '+poly.name+'</label><span onclick="deleteSavedPoly(\''+id+'\')" style="cursor:pointer; color:#ff4757; font-size:14px;" title="Eliminar">🗑️</span></div>';
-                }
-                html += '<button onclick="exportCSV()" class="nav-btn" style="margin-top:10px; width:100%; border:1px solid var(--primary-color); padding:5px 0;">💾 Descargar CSV</button>';
-            }
-            document.getElementById('capas_panel').innerHTML = html;
-        }
+    window.toggleNetwork = function(red, btn) {
+        if(activeNetworks.has(red)) { activeNetworks.delete(red); btn.classList.remove('active'); }
+        else { activeNetworks.add(red); btn.classList.add('active'); }
+        renderMapElements();
+        if (isTracking && globalUserLatLng) drawNearestStations(globalUserLatLng);
+    };
 
-        window.savePolygon = function() {
-            const name = document.getElementById('poly_name_input').value || 'Zona ' + (polyIdCounter+1);
-            const pId = 'poly_' + polyIdCounter++;
-            const newGrp = L.layerGroup().addTo(ml);
+    setTimeout(function() {
+        for (var k in window) if (k.startsWith("map_") && window[k] instanceof L.Map) { ml = window[k]; break; }
+        if (ml) {
+            updateThemeCache();
+            measureGroup = L.layerGroup().addTo(ml);
+            clusterGroup = L.markerClusterGroup({ iconCreateFunction: function(c) { return L.divIcon({ html: '<div class="custom-cluster">' + c.getChildCount() + '</div>', className: '', iconSize: [35, 35] }); }, maxClusterRadius: 45 });
+            coverageGroup = L.layerGroup();
+            ml.addLayer(clusterGroup); ml.addLayer(coverageGroup);
 
-            const areaKm2 = (calculateArea(measurePts)/1000000).toFixed(2);
-            let totalDist = 0;
-            const poly = L.polygon(measurePts, {className: 'poly-measure', weight: 2.5, fillOpacity: 0.15}).addTo(newGrp);
-
-            for(let i=0; i<measurePts.length; i++) {
-                const p1 = measurePts[i], p2 = measurePts[(i+1)%measurePts.length], d = p1.distanceTo(p2);
-                totalDist += d; drawEdgeLabel(p1, p2, d, newGrp);
-                L.circleMarker(p1, {radius: 4, className: 'measure-point', fillOpacity: 1, weight: 2}).addTo(newGrp);
-            }
-            const perimKm = (totalDist/1000).toFixed(2);
-
-            const centerHtml = '<div class="measure-center-label">Área: ' + areaKm2 + ' km²<br>Perímetro: ' + perimKm + ' km</div>';
-            L.marker(poly.getBounds().getCenter(), {icon: L.divIcon({html: centerHtml, className: '', iconSize: [0,0]})}).addTo(newGrp);
-
-            let popupHtml = '<div style="font-family:var(--font-main); font-size:11px; min-width:200px;">';
-            popupHtml += '<h4 style="margin:0 0 5px 0; color:var(--primary-color); border-bottom:1px solid var(--glass-border); padding-bottom:5px;">📐 ' + name + '</h4>';
-            popupHtml += '<b>Área:</b> ' + areaKm2 + ' km²<br><b>Perímetro:</b> ' + perimKm + ' km<br><br>';
-            popupHtml += '<div style="max-height:120px; overflow-y:auto;">';
-            measurePts.forEach(function(pt, i) {
-                const utm = latLonToUTM(pt.lat, pt.lng);
-                popupHtml += '<b>Vértice '+(i+1)+':</b> ' + pt.lat.toFixed(5) + ', ' + pt.lng.toFixed(5) + '<br>';
-                popupHtml += '<span style="color:var(--text-muted); font-size:9.5px;">UTM: '+utm.e.toFixed(1)+' E, '+utm.n.toFixed(1)+' N (Z '+utm.zone+utm.letter+')</span><br><hr style="border:0; border-top:1px solid var(--glass-border); margin:3px 0;">';
-            });
-            popupHtml += '</div></div>';
-            poly.bindPopup(popupHtml);
-
-            savedPolygonsData[pId] = { group: newGrp, name: name, area: areaKm2, perim: perimKm, pts: measurePts.slice() };
-            updateLayersPanel(); clearMeasurement(); document.getElementById('poly_name_input').value = '';
-        }
-
-        window.toggleSavedPoly = function(id, cb) { if(cb.checked) ml.addLayer(savedPolygonsData[id].group); else ml.removeLayer(savedPolygonsData[id].group); }
-        window.deleteSavedPoly = function(id) { ml.removeLayer(savedPolygonsData[id].group); delete savedPolygonsData[id]; updateLayersPanel(); }
-
-        window.toggleNetwork = function(red, btn) {
-            if(activeNetworks.has(red)) { activeNetworks.delete(red); btn.classList.remove('active'); }
-            else { activeNetworks.add(red); btn.classList.add('active'); }
-            renderMapElements();
-            if (isTracking && globalUserLatLng) asyncUpdateStations(globalUserLatLng);
-        };
-
-        setTimeout(function() {
-            for (let k in window) if (k.startsWith("map_") && window[k] instanceof L.Map) { ml = window[k]; break; }
-            if (ml) {
-                updateThemeCache();
-                measureGroup = L.layerGroup().addTo(ml);
-                clusterGroup = L.markerClusterGroup({ iconCreateFunction: function(c) { return L.divIcon({ html: '<div class="custom-cluster">' + c.getChildCount() + '</div>', className: '', iconSize: [35, 35] }); }, maxClusterRadius: 45 });
-                coverageGroup = L.layerGroup();
-                ml.addLayer(clusterGroup); ml.addLayer(coverageGroup);
-
-                window.renderMapElements = function() {
-                    clusterGroup.clearLayers(); coverageGroup.clearLayers();
-                    for (const k in datos_estaciones) {
-                        const e = datos_estaciones[k];
-                        if (activeNetworks.has(e.red)) {
-                            const m = L.marker([e.lat, e.lon], { icon: L.divIcon({html: svgPin, className: '', iconSize: [28,28], iconAnchor: [14,28]}) }).bindPopup("<b>" + k + "</b><br>" + e.red + "<br>Sats: " + e.sats);
-                            clusterGroup.addLayer(m);
-                            coverageGroup.addLayer(L.circle([e.lat, e.lon], { radius: currentRadius, color: themeColors.pC, fillColor: themeColors.pC, weight: 0.5, fillOpacity: 0.1 }));
-                        }
+            window.renderMapElements = function() {
+                clusterGroup.clearLayers(); coverageGroup.clearLayers();
+                for (var k in datos_estaciones) {
+                    var e = datos_estaciones[k];
+                    if (activeNetworks.has(e.red)) {
+                        var m = L.marker([e.lat, e.lon], { icon: L.divIcon({html: svgPin, className: '', iconSize: [28,28], iconAnchor: [14,28]}) }).bindPopup("<b>" + k + "</b><br>" + e.red + "<br>Sats: " + e.sats);
+                        clusterGroup.addLayer(m);
+                        coverageGroup.addLayer(L.circle([e.lat, e.lon], { radius: currentRadius, color: themeColors.pC, fillColor: themeColors.pC, weight: 0.5, fillOpacity: 0.1 }));
                     }
-                };
-                
-                renderMapElements(); updateLayersPanel();
-                ml.on('moveend zoomend', updateScale); updateScale();
+                }
+            };
+            renderMapElements(); updateLayersPanel();
+            ml.on('moveend zoomend', updateScale); updateScale();
 
-                let baseTile = null; ml.eachLayer(function(l) { if (l instanceof L.TileLayer) baseTile = l; });
+            var baseTile = null; ml.eachLayer(function(l) { if (l instanceof L.TileLayer) baseTile = l; });
 
-                document.getElementById('theme_toggle').addEventListener('click', function() {
-                    isDark = !isDark; document.body.classList.toggle('dark-mode', isDark);
-                    document.getElementById('theme_icon').innerText = isDark ? '🌙' : '☀️';
-                    document.getElementById('theme_icon').style.filter = isDark ? 'none' : 'grayscale(100%)';
-                    if (baseTile) baseTile.setUrl(isDark ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png' : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png');
-                    updateThemeCache(); renderMapElements();
-                    if(measurePts.length > 0) drawMeasurement();
-                    if (isTracking && globalUserLatLng) drawNearestStations(globalUserLatLng);
-                });
+            document.getElementById('theme_toggle').addEventListener('click', function() {
+                isDark = !isDark; document.body.classList.toggle('dark-mode', isDark);
+                document.getElementById('theme_icon').innerText = isDark ? '🌙' : '☀️';
+                document.getElementById('theme_icon').style.filter = isDark ? 'none' : 'grayscale(100%)';
+                if (baseTile) baseTile.setUrl(isDark ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png' : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png');
+                updateThemeCache(); renderMapElements();
+                if(measurePts.length > 0) drawMeasurement();
+                if (isTracking && globalUserLatLng) drawNearestStations(globalUserLatLng);
+            });
 
-                document.getElementById('buscador').addEventListener('input', function(e) {
-                    const n = e.target.value.toUpperCase();
-                    if (datos_estaciones[n] && activeNetworks.has(datos_estaciones[n].red)) { ml.setView([datos_estaciones[n].lat, datos_estaciones[n].lon], 14); this.blur(); }
-                });
+            document.getElementById('buscador').addEventListener('input', function(e) {
+                var n = e.target.value.toUpperCase();
+                if (datos_estaciones[n] && activeNetworks.has(datos_estaciones[n].red)) { ml.setView([datos_estaciones[n].lat, datos_estaciones[n].lon], 14); this.blur(); }
+            });
 
-                document.getElementById('buffer_input').addEventListener('input', function(e) {
-                    let v = parseFloat(e.target.value); if(isNaN(v) || v < 0) v = 0;
-                    currentRadius = v * 1000; coverageGroup.eachLayer(function(l) { l.setRadius(currentRadius); });
-                });
+            document.getElementById('buffer_input').addEventListener('input', function(e) {
+                var v = parseFloat(e.target.value); if(isNaN(v) || v < 0) v = 0;
+                currentRadius = v * 1000; coverageGroup.eachLayer(function(l) { l.setRadius(currentRadius); });
+            });
 
-                document.getElementById('center_me_btn').addEventListener('click', function() { if(globalUserLatLng) ml.setView(globalUserLatLng, 15); });
-                document.getElementById('center_station_btn').addEventListener('click', function() { if(globalNearestCoords) ml.setView(globalNearestCoords, 15); });
+            document.getElementById('center_me_btn').addEventListener('click', function() { if(globalUserLatLng) ml.setView(globalUserLatLng, 15); });
+            document.getElementById('center_station_btn').addEventListener('click', function() { if(globalNearestCoords) ml.setView(globalNearestCoords, 15); });
 
-                function clearLines() { linesBg.forEach(l=>ml.removeLayer(l)); linesFg.forEach(l=>ml.removeLayer(l)); labels.forEach(l=>ml.removeLayer(l)); linesBg=[]; linesFg=[]; labels=[]; }
+            function clearLines() {
+                linesBg.forEach(l => ml.removeLayer(l));
+                linesFg.forEach(l => ml.removeLayer(l));
+                labels.forEach(l => ml.removeLayer(l));
+                linesBg = []; linesFg = []; labels = [];
+            }
 
-                function drawNearestStations(uLatLng) {
-                    let numSt = parseInt(document.getElementById('num_stations').value);
-                    if (isNaN(numSt) || numSt < 0) numSt = 0;
-
-                    const dists = [];
-                    const uLat = uLatLng.lat;
-                    const uLon = uLatLng.lng;
-
-                    for (const k in datos_estaciones) {
-                        const est = datos_estaciones[k];
-                        if(activeNetworks.has(est.red)) {
-                            const d = fastHaversine(uLat, uLon, est.lat, est.lon);
-                            dists.push({ name: k, lat: est.lat, lon: est.lon, dist: d, red: est.red });
-                        }
-                    }
-
-                    dists.sort((a, b) => a.dist - b.dist);
-                    const tops = dists.slice(0, numSt);
-
+            function drawNearestStations(uLatLng) {
+                var numSt = parseInt(document.getElementById('num_stations').value) || 0;
+                if (numSt === 0) {
                     clearLines();
-                    if(tops.length > 0) globalNearestCoords = L.latLng(tops[0].lat, tops[0].lon);
-
-                    let tHtml = '<h4 style="margin:0 0 12px 0; font-size:13px; font-weight:600; text-align:center;">📍 Conexiones</h4><table style="width:100%; border-collapse:collapse; font-size:11px; text-align:left;">';
-                    tHtml += '<tr style="border-bottom: 1px solid var(--primary-color);"><th style="padding-bottom:5px;">Punto</th><th style="padding-bottom:5px;">Distancia</th><th style="padding-bottom:5px;">Red</th><th style="padding-bottom:5px;">Ruta</th></tr>';
-                    tHtml += '<tr class="stations-table-row" onclick="goToLocation(' + uLat + ',' + uLon + ', true)"><td style="padding:6px 2px;">👤 Yo</td><td style="color:var(--primary-color); font-weight:bold;">0 km</td><td style="color:var(--text-muted);">-</td><td>-</td></tr>';
-
-                    tops.forEach(function(st) {
-                        const stCoords = L.latLng(st.lat, st.lon);
-                        linesBg.push(L.polyline([uLatLng, stCoords], {color: themeColors.lBg, weight: 4.5, opacity: 0.9}).addTo(ml));
-                        linesFg.push(L.polyline([uLatLng, stCoords], {color: themeColors.lFg, dashArray: '5, 8', weight: 2, opacity: 1}).addTo(ml));
-
-                        const mLat = (uLat + st.lat) / 2;
-                        const mLon = (uLon + st.lon) / 2;
-                        const dKm = (st.dist / 1000).toFixed(2);
-
-                        const tLab = '<div style="color: '+themeColors.pC+'; font-weight: 600; font-size: 11px; text-shadow: '+themeColors.tS+'; position: absolute; transform: translate(-50%, -50%); width: 70px; text-align: center;">' + dKm + ' km</div>';
-                        labels.push(L.marker([mLat, mLon], {icon: L.divIcon({html: tLab, className: 'dist-label-container', iconSize: [0,0]})}).addTo(ml));
-
-                        const mapsUrl = 'https://www.google.com/maps/dir/?api=1&origin=' + uLat + ',' + uLon + '&destination=' + st.lat + ',' + st.lon + '&travelmode=driving';
-                        tHtml += '<tr class="stations-table-row" onclick="goToLocation(' + st.lat + ',' + st.lon + ', false)">';
-                        tHtml += '<td style="padding:6px 2px;">📡 ' + st.name + '</td>';
-                        tHtml += '<td>' + dKm + ' km</td>';
-                        tHtml += '<td style="color:var(--text-muted);">' + st.red + '</td>';
-                        tHtml += '<td><a href="'+mapsUrl+'" target="_blank" title="Ruta en Google Maps" style="text-decoration:none; font-size:14px;">🚗</a></td>';
-                        tHtml += '</tr>';
-                    });
-                    document.getElementById('table_content').innerHTML = tHtml + '</table>';
+                    document.getElementById('table_content').innerHTML = '';
+                    return;
                 }
 
-                window.asyncUpdateStations = function(uLatLng) {
-                    const loader = document.getElementById('loader_overlay');
-                    loader.style.display = 'flex';
-                    setTimeout(function() {
-                        try {
-                            drawNearestStations(uLatLng);
-                        } catch(e) {
-                            console.error(e);
-                        } finally {
-                            setTimeout(function() { loader.style.display = 'none'; }, 400);
-                        }
-                    }, 100);
+                var uLat = uLatLng.lat, uLon = uLatLng.lng;
+                var dists = [];
+
+                for (var k in datos_estaciones) {
+                    var est = datos_estaciones[k];
+                    if (!activeNetworks.has(est.red)) continue;
+                    dists.push({ name: k, lat: est.lat, lon: est.lon, dist: fastHaversine(uLat, uLon, est.lat, est.lon), red: est.red });
                 }
 
-                document.getElementById('btn_connect_stations').addEventListener('click', function() {
-                    let val = parseInt(document.getElementById('num_stations').value);
-                    if (isNaN(val) || val < 0) document.getElementById('num_stations').value = 0;
-                    if (isTracking && globalUserLatLng) {
-                        asyncUpdateStations(globalUserLatLng);
-                    }
+                dists.sort((a, b) => a.dist - b.dist);
+                var tops = dists.slice(0, numSt);
+
+                clearLines();
+                if (tops.length > 0) globalNearestCoords = L.latLng(tops[0].lat, tops[0].lon);
+
+                var tHtml = '<h4 style="margin:0 0 12px 0; font-size:13px; font-weight:600; text-align:center;">📍 Conexiones</h4>' +
+                            '<table style="width:100%; border-collapse:collapse; font-size:11px; text-align:left;">' +
+                            '<tr style="border-bottom:1px solid var(--primary-color);"><th style="padding-bottom:5px;">Punto</th><th style="padding-bottom:5px;">Distancia</th><th style="padding-bottom:5px;">Red</th><th style="padding-bottom:5px;">Ruta</th></tr>' +
+                            '<tr class="stations-table-row" onclick="goToLocation(' + uLat + ',' + uLon + ',true)"><td style="padding:6px 2px;">👤 Yo</td><td style="color:var(--primary-color);font-weight:bold;">0 km</td><td style="color:var(--text-muted);">-</td><td>-</td></tr>';
+
+                tops.forEach(function(st) {
+                    var stCoords = L.latLng(st.lat, st.lon);
+                    linesBg.push(L.polyline([uLatLng, stCoords], { color: themeColors.lBg, weight: 4.5, opacity: 0.9 }).addTo(ml));
+                    linesFg.push(L.polyline([uLatLng, stCoords], { color: themeColors.lFg, dashArray: '5,8', weight: 2, opacity: 1 }).addTo(ml));
+
+                    var dKm = (st.dist / 1000).toFixed(2);
+                    var tLab = '<div style="color:' + themeColors.pC + ';font-weight:600;font-size:11px;text-shadow:' + themeColors.tS + ';position:absolute;transform:translate(-50%,-50%);width:70px;text-align:center;">' + dKm + ' km</div>';
+                    labels.push(L.marker([(uLat + st.lat)/2, (uLon + st.lon)/2], { icon: L.divIcon({ html: tLab, className: '', iconSize: [0, 0] }), interactive: false }).addTo(ml));
+
+                    var mapsUrl = 'https://www.google.com/maps/dir/?api=1&origin=' + uLat + ',' + uLon + '&destination=' + st.lat + ',' + st.lon + '&travelmode=driving';
+                    tHtml += '<tr class="stations-table-row" onclick="goToLocation(' + st.lat + ',' + st.lon + ',false)">' +
+                             '<td style="padding:6px 2px;">📡 ' + st.name + '</td><td>' + dKm + ' km</td><td style="color:var(--text-muted);">' + st.red + '</td>' +
+                             '<td><a href="' + mapsUrl + '" target="_blank" title="Google Maps" style="text-decoration:none;font-size:14px;">🚗</a></td></tr>';
                 });
 
-                document.getElementById('go_btn').addEventListener('click', function() {
-                    const btnText = document.getElementById('btn_text'), btnIcon = document.getElementById('btn_icon'), gpsPanel = document.getElementById('gps_panel'), tableContainer = document.getElementById('stations_table_container');
-                    if (!navigator.geolocation) { alert("Error de GPS"); return; }
-
-                    if (isTracking) {
-                        navigator.geolocation.clearWatch(watchId); isTracking = false;
-                        btnText.innerText = "Radar GPS"; btnIcon.innerText = "📍";
-                        gpsPanel.style.display = 'none'; tableContainer.style.display = 'none';
-                        this.style.background = 'var(--primary-color)'; this.style.color = 'white';
-                        if (userMarker) { ml.removeLayer(userMarker); userMarker = null; }
-                        clearLines(); globalUserLatLng = null; globalNearestCoords = null;
-                    } else {
-                        btnText.innerText = "Detener Radar"; btnIcon.innerText = "🛑";
-                        this.style.background = 'var(--glass-bg)'; this.style.color = 'var(--text-main)';
-                        let firstLock = true;
-
-                        const loader = document.getElementById('loader_overlay');
-                        document.getElementById('loader_title').innerText = "BUSCANDO SEÑAL GPS";
-                        document.getElementById('loader_subtitle').innerText = "por favor espera...";
-                        loader.style.display = 'flex';
-
-                        watchId = navigator.geolocation.watchPosition(function(pos) {
-                            const currentLatLng = L.latLng(pos.coords.latitude, pos.coords.longitude);
-
-                            document.getElementById('loader_title').innerText = "CALCULANDO RUTAS";
-                            document.getElementById('loader_subtitle').innerText = "esto puede tardar un momento...";
-
-                            if (globalUserLatLng && globalUserLatLng.distanceTo(currentLatLng) < 3) {
-                                if(firstLock) loader.style.display = 'none';
-                                return;
-                            }
-
-                            globalUserLatLng = currentLatLng; gpsPanel.style.display = 'flex'; tableContainer.style.display = 'block';
-                            if (firstLock) { ml.setView([currentLatLng.lat, currentLatLng.lng], 13); firstLock = false; }
-                            
-                            if (userMarker) { 
-                                userMarker.setLatLng(currentLatLng); 
-                            } else { 
-                                userMarker = L.marker(currentLatLng, {icon: L.divIcon({html: uIconHtml, className: '', iconSize: [40, 40], iconAnchor: [20, 20]}), zIndexOffset: 1000}).addTo(ml); 
-                            }
-
-                            drawNearestStations(globalUserLatLng);
-                            loader.style.display = 'none';
-
-                        }, function(err) {
-                            loader.style.display = 'none';
-                            alert("Error de GPS. Verifica los permisos de tu navegador.");
-                            isTracking = false;
-                            btnText.innerText = "Radar GPS"; gpsPanel.style.display = 'none'; tableContainer.style.display = 'none';
-                        }, { enableHighAccuracy: true, maximumAge: 0, timeout: 10000 });
-                    }
-                });
+                tHtml += '</table>';
+                document.getElementById('table_content').innerHTML = tHtml;
             }
-        }, 500);
-    </script>
+
+            // AUTO-REFRESCO AL CAMBIAR NÚMERO DE ESTACIONES (Reacciona automáticamente)
+            document.getElementById('num_stations').addEventListener('input', function() {
+                if (isTracking && globalUserLatLng) {
+                    drawNearestStations(globalUserLatLng);
+                }
+            });
+
+            document.getElementById('go_btn').addEventListener('click', function() {
+                var btnText = document.getElementById('btn_text'), btnIcon = document.getElementById('btn_icon'), gpsPanel = document.getElementById('gps_panel'), tableContainer = document.getElementById('stations_table_container');
+                if (!navigator.geolocation) { alert("Error de GPS"); return; }
+
+                if (isTracking) {
+                    navigator.geolocation.clearWatch(watchId);
+                    isTracking = false; // <--- AQUÍ SE APAGA CORRECTAMENTE
+                    btnText.innerText = "Radar GPS"; btnIcon.innerText = "📍";
+                    gpsPanel.style.display = 'none'; tableContainer.style.display = 'none';
+                    this.style.background = 'var(--primary-color)'; this.style.color = 'white';
+                    if (userMarker) { ml.removeLayer(userMarker); userMarker = null; }
+                    clearLines(); globalUserLatLng = null; globalNearestCoords = null;
+                } else {
+                    isTracking = true; // <--- EL BUG ESTABA AQUÍ (faltaba encenderlo)
+                    document.getElementById('num_stations').value = "1"; // Auto-conecta a 1 estación al iniciar
+
+                    btnText.innerText = "Detener Radar"; btnIcon.innerText = "🛑";
+                    this.style.background = 'var(--glass-bg)'; this.style.color = 'var(--text-main)';
+                    var firstLock = true;
+
+                    var loader = document.getElementById('loader_overlay');
+                    loader.style.display = 'flex';
+
+                    watchId = navigator.geolocation.watchPosition(function(pos) {
+                        var currentLatLng = L.latLng(pos.coords.latitude, pos.coords.longitude);
+
+                        // Tolerancia de 15 metros para no saturar los gráficos si estás casi quieto
+                        if (globalUserLatLng && globalUserLatLng.distanceTo(currentLatLng) < 15) {
+                            if (userMarker) userMarker.setLatLng(currentLatLng);
+                            if (firstLock) loader.style.display = 'none';
+                            return;
+                        }
+
+                        globalUserLatLng = currentLatLng;
+                        gpsPanel.style.display = 'flex';
+                        tableContainer.style.display = 'block';
+
+                        if (firstLock) {
+                            ml.setView([currentLatLng.lat, currentLatLng.lng], 13);
+                            firstLock = false;
+                        }
+
+                        if (userMarker) {
+                            userMarker.setLatLng(currentLatLng);
+                        } else {
+                            userMarker = L.marker(currentLatLng, {
+                                icon: L.divIcon({ html: uIconHtml, className: '', iconSize: [40, 40], iconAnchor: [20, 20] }),
+                                zIndexOffset: 1000
+                            }).addTo(ml);
+                        }
+
+                        drawNearestStations(globalUserLatLng);
+                        loader.style.display = 'none';
+
+                    }, function(err) {
+                        loader.style.display = 'none';
+                        alert("Error de GPS. Verifica los permisos de tu navegador.");
+                        isTracking = false;
+                        btnText.innerText = "Radar GPS"; gpsPanel.style.display = 'none'; tableContainer.style.display = 'none';
+                    }, { enableHighAccuracy: true, maximumAge: 3000, timeout: 10000 });
+                }
+            });
+        }
+    }, 500);
+</script>
     
-    
-            <div class="folium-map" id="map_45dfb7f8fa7c9112dc6d0301eb622d2f" ></div>
+            <div class="folium-map" id="map_bb48c081ba5d34ccd31117c0703970a0" ></div>
         
 </body>
 <script>
     
     
-            var map_45dfb7f8fa7c9112dc6d0301eb622d2f = L.map(
-                "map_45dfb7f8fa7c9112dc6d0301eb622d2f",
+            var map_bb48c081ba5d34ccd31117c0703970a0 = L.map(
+                "map_bb48c081ba5d34ccd31117c0703970a0",
                 {
                     center: [-33.4, -70.6],
                     crs: L.CRS.EPSG3857,
@@ -775,7 +732,7 @@
 
         
     
-            var tile_layer_34851b9452bdef7f509e15a2cbd5b75e = L.tileLayer(
+            var tile_layer_f4010898101e3bfe854c131118921a7c = L.tileLayer(
                 "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
                 {
   "minZoom": 0,
@@ -792,7 +749,7 @@
             );
         
     
-            tile_layer_34851b9452bdef7f509e15a2cbd5b75e.addTo(map_45dfb7f8fa7c9112dc6d0301eb622d2f);
+            tile_layer_f4010898101e3bfe854c131118921a7c.addTo(map_bb48c081ba5d34ccd31117c0703970a0);
         
 </script>
 </html>
