@@ -1,15 +1,50 @@
-Este proyecto es un visor web para estaciones de referencia GNSS en Chile. Nació como un ejercicio para la asignatura de Ajuste de Observaciones, donde el objetivo original era simplemente procesar una tabla de datos NTRIP y lograr mostrarla en un mapa usando código.
+# GNSS Reference Station Viewer
 
-link directo: https://geofuru.github.io/Ejercicio-estaciones-Ntrip/mapa_est_Ntrip.html
+A web-based viewer for GNSS reference stations in Chile.
 
-Funcionalidades principales:
+This project was originally developed as an academic exercise for a course on **Observation Adjustment**. The initial goal was to process an NTRIP station dataset and visualize the available GNSS reference stations on an interactive map.
 
--Visualización y filtrado: Las estaciones se agrupan automáticamente y se pueden buscar o filtrar según su red.
+The project was later expanded with additional geospatial visualization and analysis tools.
 
--Radar GPS: Utiliza la ubicación del navegador para calcular en tiempo real la distancia hacia las estaciones más cercanas.
+> **Note:** The application interface is currently in Spanish and the dataset focuses on GNSS reference stations in Chile.
 
--Herramientas de medición: Permite trazar polígonos en el mapa para calcular áreas y perímetros. Además, muestra automáticamente la conversión de los vértices a coordenadas UTM.
+## Live Demo
 
--Análisis de cobertura: Permite generar radios ajustables alrededor de las estaciones para tener una idea visual de su alcance.
+**[Open the interactive map](./)**
 
--Exportación de datos: Los polígonos trazados en el mapa se pueden descargar en formato .csv con todos sus vértices detallados.
+## Features
+
+* **Station visualization and filtering**
+  GNSS reference stations are displayed on an interactive map and can be searched and filtered by network.
+
+* **Distance analysis**
+  Uses the browser's location to calculate distances to nearby reference stations in real time.
+
+* **Measurement tools**
+  Allows users to draw polygons on the map and calculate their areas and perimeters. Polygon vertices are also converted to UTM coordinates.
+
+* **Coverage analysis**
+  Adjustable radius areas can be generated around stations to provide a visual representation of their potential coverage.
+
+* **Data export**
+  Drawn polygons can be exported as `.csv` files containing their vertices and coordinate information.
+
+## Technologies
+
+* HTML
+* JavaScript
+* Leaflet
+* OpenStreetMap
+* GNSS / NTRIP station data
+* UTM coordinate conversion
+* CSV data processing
+
+## Project Context
+
+This project was developed as an **academic project** involving the processing and visualization of GNSS reference station data.
+
+The dataset and geographic context are focused on **Chile**.
+
+## Project Status
+
+Academic project / course exercise.
