@@ -10,7 +10,7 @@ The project was later expanded with additional geospatial visualization and anal
 
 ## Live Demo
 
-**[Open the interactive map](./)**
+https://geofuru.github.io/GNSS-Reference-Station-Viewer/
 
 ## Features
 
