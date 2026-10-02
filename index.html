@@ -45,13 +45,13 @@
 <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
 
     <link rel="stylesheet" href="css/styles.css"/>
-<div id="zen_overlay" onclick="exitZenMode()" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:9997; cursor:pointer;" title="Haz clic en cualquier parte para restaurar la interfaz"></div>
+<div id="zen_overlay" onclick="exitZenMode()" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:9997; cursor:pointer;" data-i18n-title="zen_title" title="Haz clic en cualquier parte para restaurar la interfaz"></div>
 
 <div id="loader_overlay">
     <div class="glass-panel" style="padding: 30px 50px; display: flex; flex-direction: column; align-items: center; text-align: center;">
         <div class="spinner-ring"></div>
-        <div id="loader_title" style="font-size: 13px; font-weight: 700; color: var(--primary-color); letter-spacing: 1px;">BUSCANDO SEÑAL GPS</div>
-        <div id="loader_subtitle" style="font-size: 11px; font-weight: 500; color: var(--text-muted); margin-top: 6px;">por favor espera...</div>
+        <div id="loader_title" style="font-size: 13px; font-weight: 700; color: var(--primary-color); letter-spacing: 1px;" data-i18n="loader_title">BUSCANDO SEÑAL GPS</div>
+        <div id="loader_subtitle" style="font-size: 11px; font-weight: 500; color: var(--text-muted); margin-top: 6px;" data-i18n="loader_subtitle">por favor espera...</div>
     </div>
 </div>
 
@@ -65,13 +65,13 @@
     <div id="scale_val_km" class="scale-text-km">10 km</div>
     <div style="display:flex; align-items:center; gap:5px;">
         <div id="scale_val_frac" class="scale-text-frac">Escala 1:50.000</div>
-        <span id="btn_edit_scale" style="cursor:pointer; font-size:12px; opacity:0.8;" title="Fijar Escala Manual">✏️</span>
+        <span id="btn_edit_scale" style="cursor:pointer; font-size:12px; opacity:0.8;" data-i18n-title="scale_fix_title" title="Fijar Escala Manual">✏️</span>
     </div>
 
     <div id="scale_edit_panel" class="glass-panel" style="display:none; position:absolute; bottom:100%; margin-bottom:5px; padding:6px 12px; flex-direction:row; align-items:center; gap:6px;">
-        <span style="font-size:11px; font-weight:600;">Escala 1 :</span>
+        <span style="font-size:11px; font-weight:600;" data-i18n="scale_edit_label">Escala 1 :</span>
         <input type="number" id="custom_scale_input" placeholder="50000" style="width:70px; font-size:11px; outline:none; border:1px solid var(--glass-border); border-radius:4px; padding:2px;">
-        <button onclick="applyCustomScale()" class="nav-btn" style="padding:2px 10px; font-size:10px; min-height:0; margin:0; background:var(--primary-color); color:white; border:none;">Ir</button>
+        <button onclick="applyCustomScale()" class="nav-btn" style="padding:2px 10px; font-size:10px; min-height:0; margin:0; background:var(--primary-color); color:white; border:none;" data-i18n="scale_go">Ir</button>
     </div>
 </div>
 
@@ -79,14 +79,15 @@
     <div style="display:flex; gap:8px; align-items:center;">
         <div class="glass-panel" style="display:flex; align-items:center; padding:8px 15px; border-radius:50px;">
             <span style="font-size:15px; margin-right:8px;">🔍</span>
-            <input type="text" id="buscador" list="lista_estaciones" placeholder="Buscar..." style="border:none; outline:none; font-size:13px; width:130px; font-weight:500;">
+            <input type="text" id="buscador" list="lista_estaciones" data-i18n-placeholder="search_ph" placeholder="Buscar..." style="border:none; outline:none; font-size:13px; width:130px; font-weight:500;">
             <datalist id="lista_estaciones"><option value="BTOR"></option><option value="MSOL"></option><option value="MVDE"></option><option value="SCCF"></option><option value="BALB"></option><option value="CASC"></option><option value="BPOL"></option><option value="EMMB"></option><option value="CCMC"></option><option value="ZALD"></option><option value="SPNC"></option><option value="SQMS"></option><option value="BTES"></option><option value="BESP"></option><option value="ESPZ"></option><option value="BOXE"></option><option value="ANTU"></option><option value="SQMH"></option><option value="BESC"></option><option value="BMDO"></option><option value="BRTC"></option><option value="TMCO"></option><option value="BOLB"></option><option value="DMHC"></option><option value="CONZ"></option><option value="CNCN"></option><option value="PTMT"></option><option value="SCOL"></option><option value="SNTI"></option><option value="TALC"></option><option value="VLDV"></option><option value="UTAR"></option><option value="UDEC"></option><option value="CBAA"></option><option value="CHDA"></option><option value="CSOM"></option><option value="GTA1"></option><option value="MRCG"></option><option value="PECL"></option><option value="PCCL"></option><option value="PEDR"></option><option value="PTRO"></option><option value="PTAR"></option><option value="PLVP"></option><option value="TAMR"></option><option value="SBLL"></option><option value="ROB1"></option><option value="TRPD"></option><option value="XPLO"></option><option value="CCSN"></option><option value="DGF1"></option><option value="USCL"></option><option value="UAIB"></option><option value="SANT"></option><option value="ANTC"></option><option value="ANTF"></option><option value="IQQE"></option><option value="TEJA"></option><option value="CPPO"></option><option value="OSOR"></option><option value="ANTO"></option><option value="LLAY"></option><option value="TEMU"></option><option value="CLMA"></option></datalist>
         </div>
-        <div class="icon-btn" onclick="togglePanel('filtros_panel')" title="Filtros">⚙️</div>
-        <div class="icon-btn" id="theme_toggle" title="Modo Oscuro"><span id="theme_icon" style="filter: grayscale(100%); opacity: 0.8; transition: 0.3s;">☀️</span></div>
+        <div class="icon-btn" onclick="togglePanel('filtros_panel')" data-i18n-title="filter_btn_title" title="Filtros">⚙️</div>
+        <div class="icon-btn" id="theme_toggle" data-i18n-title="theme_btn_title" title="Modo Oscuro"><span id="theme_icon" style="filter: grayscale(100%); opacity: 0.8; transition: 0.3s;">☀️</span></div>
+        <div class="icon-btn" id="lang_toggle" onclick="toggleLang()" data-i18n-title="lang_btn_title" title="Idioma / Language" style="font-weight:700; font-size:13px;">ES</div>
     </div>
     <div id="filtros_panel" class="glass-panel" style="display:none; padding: 12px; gap:6px; flex-wrap:wrap; max-width: 250px;">
-        <span style="font-size:11px; font-weight:600; width:100%;">Filtrar Redes:</span>
+        <span style="font-size:11px; font-weight:600; width:100%;" data-i18n="filters_title">Filtrar Redes:</span>
         <button class="filter-pill active" onclick="toggleNetwork('GA', this)">GA</button><button class="filter-pill active" onclick="toggleNetwork('JPL', this)">JPL</button><button class="filter-pill active" onclick="toggleNetwork('Geocom', this)">Geocom</button><button class="filter-pill active" onclick="toggleNetwork('IGS', this)">IGS</button><button class="filter-pill active" onclick="toggleNetwork('CSN', this)">CSN</button>
     </div>
     <div id="stations_table_container" class="glass-panel" style="display:none; padding:15px; max-height: 40vh; overflow-y: auto; width: 310px; position:relative;">
@@ -96,52 +97,52 @@
 </div>
 
 <div class="ui-container" style="position:fixed; top:15px; right:15px; z-index:9999; display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
-    <div class="icon-btn" onclick="togglePanel('capas_panel')" title="Administrar Capas y Exportar">📚</div>
-    <div class="icon-btn" onclick="toggleMeasureMode()" id="btn_measure" title="Medir Área y Perímetro">📏</div>
-    <div class="icon-btn" onclick="activateZenMode()" title="Modo Informe (Limpia la pantalla)">📸</div>
+    <div class="icon-btn" onclick="togglePanel('capas_panel')" data-i18n-title="layers_btn_title" title="Administrar Capas y Exportar">📚</div>
+    <div class="icon-btn" onclick="toggleMeasureMode()" id="btn_measure" data-i18n-title="measure_btn_title" title="Medir Área y Perímetro">📏</div>
+    <div class="icon-btn" onclick="activateZenMode()" data-i18n-title="zen_btn_title" title="Modo Informe (Limpia la pantalla)">📸</div>
 
     <div id="capas_panel" class="glass-panel" style="display:none; padding:12px 15px; flex-direction:column; gap:8px; font-size:12px; font-weight:500; position:absolute; top:45px; right:45px; width: 220px;"></div>
 
     <div id="measure_panel" class="glass-panel" style="display:none; padding:15px; position:absolute; top:95px; right:45px; width:240px; font-size:11px;">
-        <div style="font-weight:700; color:var(--primary-color); margin-bottom:8px; text-align:center; font-size:12px;">📐 MODO MEDICIÓN</div>
-        <div style="color:var(--text-muted); text-align:center; margin-bottom:10px;">Haz clic en el mapa para trazar.</div>
+        <div style="font-weight:700; color:var(--primary-color); margin-bottom:8px; text-align:center; font-size:12px;" data-i18n="measure_mode_title">📐 MODO MEDICIÓN</div>
+        <div style="color:var(--text-muted); text-align:center; margin-bottom:10px;" data-i18n="measure_instruction">Haz clic en el mapa para trazar.</div>
         <div id="measure_points_list"></div>
-        <input type="text" id="poly_name_input" placeholder="Nombre (ej. Zona A)" style="width:100%; border:1px solid var(--glass-border); border-radius:6px; padding:6px; outline:none; margin-bottom:8px;">
+        <input type="text" id="poly_name_input" data-i18n-placeholder="poly_name_ph" placeholder="Nombre (ej. Zona A)" style="width:100%; border:1px solid var(--glass-border); border-radius:6px; padding:6px; outline:none; margin-bottom:8px;">
         <div style="display:flex; gap:5px;">
-            <button onclick="clearMeasurement()" class="nav-btn" style="flex:1; padding:6px 0;">Limpiar</button>
-            <button id="save_poly_btn" onclick="savePolygon()" class="nav-btn" style="flex:1; padding:6px 0; background:var(--primary-color); color:white; border:none;" disabled>Guardar</button>
+            <button onclick="clearMeasurement()" class="nav-btn" style="flex:1; padding:6px 0;" data-i18n="clear">Limpiar</button>
+            <button id="save_poly_btn" onclick="savePolygon()" class="nav-btn" style="flex:1; padding:6px 0; background:var(--primary-color); color:white; border:none;" data-i18n="save" disabled>Guardar</button>
         </div>
     </div>
 </div>
 
 <div class="ui-container" style="position:fixed; bottom:25px; left:20px; z-index:9999; display:flex; flex-direction:column; gap:8px; align-items:flex-start;">
     <div id="buffer_panel" class="glass-panel" style="display:none; padding:12px 18px; display:flex; align-items:center; gap:10px;">
-        <label style="font-weight:600; font-size:12px;">Radio Cobertura (km):</label>
+        <label style="font-weight:600; font-size:12px;" data-i18n="buffer_label">Radio Cobertura (km):</label>
         <input type="number" id="buffer_input" min="0" step="0.1" value="0" style="width:70px; border:1px solid var(--glass-border); border-radius:6px; padding:4px 8px; outline:none; font-weight:bold;">
     </div>
-    <div class="icon-btn" onclick="togglePanel('buffer_panel')" title="Cobertura">⭕</div>
+    <div class="icon-btn" onclick="togglePanel('buffer_panel')" data-i18n-title="buffer_btn_title" title="Cobertura">⭕</div>
 </div>
 
 <div class="ui-container" style="position:fixed; bottom:25px; right:20px; z-index:9999; display:flex; flex-direction:column; gap:8px; align-items:flex-end; width: 250px;">
     <div id="gps_panel" class="glass-panel" style="display:none; padding:15px; flex-direction:column; gap:12px; width:100%;">
         <div style="font-size:10px; color:var(--text-muted); text-align:center; font-weight:700; letter-spacing:0.5px; border-bottom:1px solid var(--glass-border); padding-bottom:5px;">
-            📡 ESTACIONES CERCANAS EN TIEMPO REAL
+            <span data-i18n="gps_panel_title">📡 ESTACIONES CERCANAS EN TIEMPO REAL</span>
         </div>
         <div style="display:flex; align-items:center; justify-content:space-between; font-size:12px; font-weight:600; padding:0 2px;">
-            <span>Conectar a:</span>
+            <span data-i18n="connect_to">Conectar a:</span>
             <div style="display:flex; gap:5px; align-items:center;">
                 <input type="number" id="num_stations" min="0" value="0" style="width:50px; text-align:center; border-radius:6px; padding:4px; outline:none; border:1px solid var(--glass-border); font-weight:bold;">
             </div>
         </div>
         <div style="display:flex; gap:5px;">
-            <button id="center_me_btn" class="nav-btn" style="flex:1; padding:8px 0; font-size:11px;">🎯 Yo</button>
-            <button id="center_station_btn" class="nav-btn" style="flex:1; padding:8px 0; font-size:11px;">📡 Est.</button>
+            <button id="center_me_btn" class="nav-btn" style="flex:1; padding:8px 0; font-size:11px;" data-i18n="me_btn">🎯 Yo</button>
+            <button id="center_station_btn" class="nav-btn" style="flex:1; padding:8px 0; font-size:11px;" data-i18n="est_btn">📡 Est.</button>
         </div>
-        <button onclick="document.getElementById('stations_table_container').style.display='block'" class="nav-btn" style="padding:8px 0; font-size:11px; width:100%; border:1px solid var(--primary-color);">📋 Ver Tabla</button>
+        <button onclick="document.getElementById('stations_table_container').style.display='block'" class="nav-btn" style="padding:8px 0; font-size:11px; width:100%; border:1px solid var(--primary-color);"><span data-i18n="table_btn">📋 Ver Tabla</span></button>
     </div>
 
     <div class="nav-btn" id="go_btn" style="background: var(--primary-color); color: white; border:none; box-shadow: 0 4px 15px rgba(224, 25, 184, 0.4); border-radius: 50px; padding: 12px 20px;">
-        <span id="btn_icon" style="font-size:16px;">📍</span> <span id="btn_text" style="margin-left:5px;">Radar GPS</span>
+        <span id="btn_icon" style="font-size:16px;">📍</span> <span id="btn_text" style="margin-left:5px;" data-i18n="radar">Radar GPS</span>
     </div>
 </div>
 
@@ -188,6 +189,7 @@
     
             tile_layer_f4010898101e3bfe854c131118921a7c.addTo(map);
         </script>
+        <script src="js/i18n.js"></script>
         <script src="js/main.js"></script>
 
 </body>

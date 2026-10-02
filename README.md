@@ -29,6 +29,9 @@ https://geofuru.github.io/GNSS-Reference-Station-Viewer/
 * **Data export**
   Drawn polygons can be exported as `.csv` files containing their vertices and coordinate information.
 
+* **Bilingual interface (Spanish / English)**
+  A language toggle button (ES/EN) next to the theme switch translates the whole interface and all exported data (CSV headers, popups, tables) to English or Spanish. Station data itself is not translated.
+
 ## Technologies
 
 * HTML

@@ -60,7 +60,7 @@
         var center = ml.getCenter(); var zoom = ml.getZoom();
         var metersPerPixel = (Math.cos(center.lat * Math.PI / 180) * 2 * Math.PI * 6378137) / (256 * Math.pow(2, zoom));
         var scaleFraction = Math.round(metersPerPixel * 3779.527);
-        document.getElementById('scale_val_frac').innerText = 'Escala 1:' + scaleFraction.toLocaleString('es-CL');
+        document.getElementById('scale_val_frac').innerText = t('scale_label') + scaleFraction.toLocaleString(lang === 'es' ? 'es-CL' : 'en-US');
 
         var maxWidth = 150; var maxMeters = maxWidth * metersPerPixel;
         var pow10 = Math.pow(10, (Math.floor(maxMeters) + '').length - 1);
@@ -88,15 +88,15 @@
 
     window.exportCSV = function() {
         var keys = Object.keys(savedPolygonsData);
-        if(keys.length === 0) return alert("No hay polígonos para exportar.");
+        if(keys.length === 0) return alert(t('csv_none'));
 
         keys.forEach(function(id) {
             var poly = savedPolygonsData[id];
             var csvContent = "data:text/csv;charset=utf-8,";
-            csvContent += "Poligono," + poly.name + "\n";
-            csvContent += "Area (km2)," + poly.area + "\n";
-            csvContent += "Perimetro (km)," + poly.perim + "\n\n";
-            csvContent += "Vertice,Latitud,Longitud,UTM_Este,UTM_Norte,Zona_UTM\n";
+            csvContent += t('csv_polygon') + "," + poly.name + "\n";
+            csvContent += t('csv_area') + "," + poly.area + "\n";
+            csvContent += t('csv_perim') + "," + poly.perim + "\n\n";
+            csvContent += t('csv_verts') + "\n";
 
             poly.pts.forEach(function(pt, index) {
                 var utm = latLonToUTM(pt.lat, pt.lng);
@@ -158,7 +158,7 @@
         var html = '<div style="max-height:130px; overflow-y:auto; margin-bottom:8px; text-align:left;">';
         measurePts.forEach(function(pt, i) {
             var utm = latLonToUTM(pt.lat, pt.lng);
-            html += '<div style="border-bottom:1px solid var(--glass-border); padding:5px 0;"><div style="font-weight:600; color:var(--primary-color); display:flex; justify-content:space-between;"><span>📍 Pto '+(i+1)+'</span><span style="cursor:pointer;" onclick="goToLocation('+pt.lat+', '+pt.lng+', true)">🎯 Ir</span></div><div style="font-size:9.5px; line-height:1.3; color:var(--text-main);">Lat: '+pt.lat.toFixed(5)+', Lon: '+pt.lng.toFixed(5)+'<br>UTM: '+utm.e.toFixed(1)+' E, '+utm.n.toFixed(1)+' N (Z '+utm.zone+utm.letter+')</div></div>';
+            html += '<div style="border-bottom:1px solid var(--glass-border); padding:5px 0;"><div style="font-weight:600; color:var(--primary-color); display:flex; justify-content:space-between;"><span>📍 ' + t('point') + ' ' + (i+1) + '</span><span style="cursor:pointer;" onclick="goToLocation('+pt.lat+', '+pt.lng+', true)">🎯 ' + t('go') + '</span></div><div style="font-size:9.5px; line-height:1.3; color:var(--text-main);">Lat: '+pt.lat.toFixed(5)+', Lon: '+pt.lng.toFixed(5)+'<br>UTM: '+utm.e.toFixed(1)+' E, '+utm.n.toFixed(1)+' N (Z '+utm.zone+utm.letter+')</div></div>';
         });
         document.getElementById('measure_points_list').innerHTML = html + '</div>';
         var saveBtn = document.getElementById('save_poly_btn');
@@ -179,7 +179,7 @@
                 var p1 = measurePts[i], p2 = measurePts[(i+1)%measurePts.length], d = p1.distanceTo(p2);
                 totalDist += d; drawEdgeLabel(p1, p2, d, measureGroup);
             }
-            var centerHtml = '<div class="measure-center-label">Área: ' + (calculateArea(measurePts)/1000000).toFixed(2) + ' km²<br>Perímetro: ' + (totalDist/1000).toFixed(2) + ' km</div>';
+            var centerHtml = '<div class="measure-center-label">' + t('area') + (calculateArea(measurePts)/1000000).toFixed(2) + ' km²<br>' + t('perim') + (totalDist/1000).toFixed(2) + ' km</div>';
             L.marker(poly.getBounds().getCenter(), {icon: L.divIcon({html: centerHtml, className: '', iconSize: [0,0]})}).addTo(measureGroup);
         } else if(measurePts.length === 2) {
             L.polyline(measurePts, {className: 'poly-measure-line', weight: 2.5}).addTo(measureGroup);
@@ -188,7 +188,7 @@
     }
 
     window.updateLayersPanel = function() {
-        var html = '<label style="display:flex; align-items:center; gap:8px; cursor:pointer;"><input type="checkbox" id="chk_estaciones" '+(ml.hasLayer(clusterGroup)?'checked':'')+' onchange="if(this.checked) ml.addLayer(clusterGroup); else ml.removeLayer(clusterGroup);" style="accent-color: var(--primary-color);"> 📡 Estaciones</label><label style="display:flex; align-items:center; gap:8px; cursor:pointer;"><input type="checkbox" id="chk_cobertura" '+(ml.hasLayer(coverageGroup)?'checked':'')+' onchange="if(this.checked) ml.addLayer(coverageGroup); else ml.removeLayer(coverageGroup);" style="accent-color: var(--primary-color);"> 🔵 Cobertura</label>';
+        var html = '<label style="display:flex; align-items:center; gap:8px; cursor:pointer;"><input type="checkbox" id="chk_estaciones" '+(ml.hasLayer(clusterGroup)?'checked':'')+' onchange="if(this.checked) ml.addLayer(clusterGroup); else ml.removeLayer(clusterGroup);" style="accent-color: var(--primary-color);"> 📡 ' + t('stations') + '</label><label style="display:flex; align-items:center; gap:8px; cursor:pointer;"><input type="checkbox" id="chk_cobertura" '+(ml.hasLayer(coverageGroup)?'checked':'')+' onchange="if(this.checked) ml.addLayer(coverageGroup); else ml.removeLayer(coverageGroup);" style="accent-color: var(--primary-color);"> 🔵 ' + t('coverage') + '</label>';
 
         if(Object.keys(savedPolygonsData).length > 0) {
             html += '<hr style="border:0; border-top:1px solid var(--glass-border); margin:5px 0;">';
@@ -196,13 +196,13 @@
                 var poly = savedPolygonsData[id], isCh = ml.hasLayer(poly.group) ? 'checked' : '';
                 html += '<div style="display:flex; justify-content:space-between; align-items:center;"><label style="display:flex; align-items:center; gap:8px; cursor:pointer;"><input type="checkbox" '+isCh+' onchange="toggleSavedPoly(\''+id+'\', this)" style="accent-color: var(--primary-color);"> 📐 '+poly.name+'</label><span onclick="deleteSavedPoly(\''+id+'\')" style="cursor:pointer; color:#ff4757; font-size:14px;" title="Eliminar">🗑️</span></div>';
             }
-            html += '<button onclick="exportCSV()" class="nav-btn" style="margin-top:10px; width:100%; border:1px solid var(--primary-color); padding:5px 0;">💾 Descargar CSV</button>';
+            html += '<button onclick="exportCSV()" class="nav-btn" style="margin-top:10px; width:100%; border:1px solid var(--primary-color); padding:5px 0;">💾 ' + t('download_csv') + '</button>';
         }
         document.getElementById('capas_panel').innerHTML = html;
     }
 
     window.savePolygon = function() {
-        var name = document.getElementById('poly_name_input').value || 'Zona ' + (polyIdCounter+1);
+        var name = document.getElementById('poly_name_input').value || t('zone') + ' ' + (polyIdCounter+1);
         var pId = 'poly_' + polyIdCounter++;
         var newGrp = L.layerGroup().addTo(ml);
 
@@ -217,16 +217,16 @@
         }
         var perimKm = (totalDist/1000).toFixed(2);
 
-        var centerHtml = '<div class="measure-center-label">Área: ' + areaKm2 + ' km²<br>Perímetro: ' + perimKm + ' km</div>';
+        var centerHtml = '<div class="measure-center-label">' + t('area') + areaKm2 + ' km²<br>' + t('perim') + perimKm + ' km</div>';
         L.marker(poly.getBounds().getCenter(), {icon: L.divIcon({html: centerHtml, className: '', iconSize: [0,0]})}).addTo(newGrp);
 
         var popupHtml = '<div style="font-family:var(--font-main); font-size:11px; min-width:200px;">';
         popupHtml += '<h4 style="margin:0 0 5px 0; color:var(--primary-color); border-bottom:1px solid var(--glass-border); padding-bottom:5px;">📐 ' + name + '</h4>';
-        popupHtml += '<b>Área:</b> ' + areaKm2 + ' km²<br><b>Perímetro:</b> ' + perimKm + ' km<br><br>';
+        popupHtml += '<b>' + t('area') + '</b>' + areaKm2 + ' km²<br><b>' + t('perim') + '</b>' + perimKm + ' km<br><br>';
         popupHtml += '<div style="max-height:120px; overflow-y:auto;">';
         measurePts.forEach(function(pt, i) {
             var utm = latLonToUTM(pt.lat, pt.lng);
-            popupHtml += '<b>Vértice '+(i+1)+':</b> ' + pt.lat.toFixed(5) + ', ' + pt.lng.toFixed(5) + '<br>';
+            popupHtml += '<b>' + t('vertex') + ' '+(i+1)+':</b> ' + pt.lat.toFixed(5) + ', ' + pt.lng.toFixed(5) + '<br>';
             popupHtml += '<span style="color:var(--text-muted); font-size:9.5px;">UTM: '+utm.e.toFixed(1)+' E, '+utm.n.toFixed(1)+' N (Z '+utm.zone+utm.letter+')</span><br><hr style="border:0; border-top:1px solid var(--glass-border); margin:3px 0;">';
         });
         popupHtml += '</div></div>';
@@ -323,10 +323,10 @@
                 clearLines();
                 if (tops.length > 0) globalNearestCoords = L.latLng(tops[0].lat, tops[0].lon);
 
-                var tHtml = '<h4 style="margin:0 0 12px 0; font-size:13px; font-weight:600; text-align:center;">📍 Conexiones</h4>' +
+                var tHtml = '<h4 style="margin:0 0 12px 0; font-size:13px; font-weight:600; text-align:center;">📍 ' + t('connections') + '</h4>' +
                             '<table style="width:100%; border-collapse:collapse; font-size:11px; text-align:left;">' +
-                            '<tr style="border-bottom:1px solid var(--primary-color);"><th style="padding-bottom:5px;">Punto</th><th style="padding-bottom:5px;">Distancia</th><th style="padding-bottom:5px;">Red</th><th style="padding-bottom:5px;">Ruta</th></tr>' +
-                            '<tr class="stations-table-row" onclick="goToLocation(' + uLat + ',' + uLon + ',true)"><td style="padding:6px 2px;">👤 Yo</td><td style="color:var(--primary-color);font-weight:bold;">0 km</td><td style="color:var(--text-muted);">-</td><td>-</td></tr>';
+                            '<tr style="border-bottom:1px solid var(--primary-color);"><th style="padding-bottom:5px;">' + t('point_col') + '</th><th style="padding-bottom:5px;">' + t('distance') + '</th><th style="padding-bottom:5px;">' + t('network') + '</th><th style="padding-bottom:5px;">' + t('route') + '</th></tr>' +
+                            '<tr class="stations-table-row" onclick="goToLocation(' + uLat + ',' + uLon + ',true)"><td style="padding:6px 2px;">👤 ' + t('me') + '</td><td style="color:var(--primary-color);font-weight:bold;">0 km</td><td style="color:var(--text-muted);">-</td><td>-</td></tr>';
 
                 tops.forEach(function(st) {
                     var stCoords = L.latLng(st.lat, st.lon);
@@ -347,6 +347,8 @@
                 document.getElementById('table_content').innerHTML = tHtml;
             }
 
+            window.drawNearestStations = drawNearestStations;
+
             // AUTO-REFRESCO AL CAMBIAR NÚMERO DE ESTACIONES (Reacciona automáticamente)
             document.getElementById('num_stations').addEventListener('input', function() {
                 if (isTracking && globalUserLatLng) {
@@ -356,12 +358,12 @@
 
             document.getElementById('go_btn').addEventListener('click', function() {
                 var btnText = document.getElementById('btn_text'), btnIcon = document.getElementById('btn_icon'), gpsPanel = document.getElementById('gps_panel'), tableContainer = document.getElementById('stations_table_container');
-                if (!navigator.geolocation) { alert("Error de GPS"); return; }
+                if (!navigator.geolocation) { alert(t('gps_error')); return; }
 
                 if (isTracking) {
                     navigator.geolocation.clearWatch(watchId);
                     isTracking = false; // <--- AQUÍ SE APAGA CORRECTAMENTE
-                    btnText.innerText = "Radar GPS"; btnIcon.innerText = "📍";
+                    btnText.innerText = t('radar'); btnIcon.innerText = "📍";
                     gpsPanel.style.display = 'none'; tableContainer.style.display = 'none';
                     this.style.background = 'var(--primary-color)'; this.style.color = 'white';
                     if (userMarker) { ml.removeLayer(userMarker); userMarker = null; }
@@ -370,7 +372,7 @@
                     isTracking = true; // <--- EL BUG ESTABA AQUÍ (faltaba encenderlo)
                     document.getElementById('num_stations').value = "1"; // Auto-conecta a 1 estación al iniciar
 
-                    btnText.innerText = "Detener Radar"; btnIcon.innerText = "🛑";
+                    btnText.innerText = t('stop_radar'); btnIcon.innerText = "🛑";
                     this.style.background = 'var(--glass-bg)'; this.style.color = 'var(--text-main)';
                     var firstLock = true;
 
@@ -410,9 +412,9 @@
 
                     }, function(err) {
                         loader.style.display = 'none';
-                        alert("Error de GPS. Verifica los permisos de tu navegador.");
+                        alert(t('gps_error_msg'));
                         isTracking = false;
-                        btnText.innerText = "Radar GPS"; gpsPanel.style.display = 'none'; tableContainer.style.display = 'none';
+                        btnText.innerText = t('radar'); gpsPanel.style.display = 'none'; tableContainer.style.display = 'none';
                     }, { enableHighAccuracy: true, maximumAge: 3000, timeout: 10000 });
                 }
             });
