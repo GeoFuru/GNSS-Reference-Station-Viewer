@@ -158,7 +158,7 @@
         var html = '<div style="max-height:130px; overflow-y:auto; margin-bottom:8px; text-align:left;">';
         measurePts.forEach(function(pt, i) {
             var utm = latLonToUTM(pt.lat, pt.lng);
-            html += '<div style="border-bottom:1px solid var(--glass-border); padding:5px 0;"><div style="font-weight:600; color:var(--primary-color); display:flex; justify-content:space-between;"><span>📍 ' + t('point') + ' ' + (i+1) + '</span><span style="cursor:pointer;" onclick="goToLocation('+pt.lat+', '+pt.lng+', true)">🎯 ' + t('go') + '</span></div><div style="font-size:9.5px; line-height:1.3; color:var(--text-main);">Lat: '+pt.lat.toFixed(5)+', Lon: '+pt.lng.toFixed(5)+'<br>UTM: '+utm.e.toFixed(1)+' E, '+utm.n.toFixed(1)+' N (Z '+utm.zone+utm.letter+')</div></div>';
+            html += '<div style="border-bottom:1px solid var(--glass-border); padding:5px 0;"><div style="font-weight:600; color:var(--primary-color); display:flex; justify-content:space-between;"><span><i class="fa-solid fa-location-dot"></i> ' + t('point') + ' ' + (i+1) + '</span><span style="cursor:pointer;" onclick="goToLocation('+pt.lat+', '+pt.lng+', true)"><i class="fa-solid fa-crosshairs"></i> ' + t('go') + '</span></div><div style="font-size:9.5px; line-height:1.3; color:var(--text-main);">Lat: '+pt.lat.toFixed(5)+', Lon: '+pt.lng.toFixed(5)+'<br>UTM: '+utm.e.toFixed(1)+' E, '+utm.n.toFixed(1)+' N (Z '+utm.zone+utm.letter+')</div></div>';
         });
         document.getElementById('measure_points_list').innerHTML = html + '</div>';
         var saveBtn = document.getElementById('save_poly_btn');
@@ -188,15 +188,15 @@
     }
 
     window.updateLayersPanel = function() {
-        var html = '<label style="display:flex; align-items:center; gap:8px; cursor:pointer;"><input type="checkbox" id="chk_estaciones" '+(ml.hasLayer(clusterGroup)?'checked':'')+' onchange="if(this.checked) ml.addLayer(clusterGroup); else ml.removeLayer(clusterGroup);" style="accent-color: var(--primary-color);"> 📡 ' + t('stations') + '</label><label style="display:flex; align-items:center; gap:8px; cursor:pointer;"><input type="checkbox" id="chk_cobertura" '+(ml.hasLayer(coverageGroup)?'checked':'')+' onchange="if(this.checked) ml.addLayer(coverageGroup); else ml.removeLayer(coverageGroup);" style="accent-color: var(--primary-color);"> 🔵 ' + t('coverage') + '</label>';
+        var html = '<label style="display:flex; align-items:center; gap:8px; cursor:pointer;"><input type="checkbox" id="chk_estaciones" '+(ml.hasLayer(clusterGroup)?'checked':'')+' onchange="if(this.checked) ml.addLayer(clusterGroup); else ml.removeLayer(clusterGroup);" style="accent-color: var(--primary-color);"> <i class="fa-solid fa-tower-broadcast"></i> ' + t('stations') + '</label><label style="display:flex; align-items:center; gap:8px; cursor:pointer;"><input type="checkbox" id="chk_cobertura" '+(ml.hasLayer(coverageGroup)?'checked':'')+' onchange="if(this.checked) ml.addLayer(coverageGroup); else ml.removeLayer(coverageGroup);" style="accent-color: var(--primary-color);"> <i class="fa-solid fa-circle-dot"></i> ' + t('coverage') + '</label>';
 
         if(Object.keys(savedPolygonsData).length > 0) {
             html += '<hr style="border:0; border-top:1px solid var(--glass-border); margin:5px 0;">';
             for(var id in savedPolygonsData) {
                 var poly = savedPolygonsData[id], isCh = ml.hasLayer(poly.group) ? 'checked' : '';
-                html += '<div style="display:flex; justify-content:space-between; align-items:center;"><label style="display:flex; align-items:center; gap:8px; cursor:pointer;"><input type="checkbox" '+isCh+' onchange="toggleSavedPoly(\''+id+'\', this)" style="accent-color: var(--primary-color);"> 📐 '+poly.name+'</label><span onclick="deleteSavedPoly(\''+id+'\')" style="cursor:pointer; color:#ff4757; font-size:14px;" title="Eliminar">🗑️</span></div>';
+                html += '<div style="display:flex; justify-content:space-between; align-items:center;"><label style="display:flex; align-items:center; gap:8px; cursor:pointer;"><input type="checkbox" '+isCh+' onchange="toggleSavedPoly(\''+id+'\', this)" style="accent-color: var(--primary-color);"> <i class="fa-solid fa-draw-polygon"></i> ' + poly.name+'</label><span onclick="deleteSavedPoly(\''+id+'\')" style="cursor:pointer; color:#ff4757; font-size:14px;" title="Eliminar"><i class="fa-solid fa-trash"></i></span></div>';
             }
-            html += '<button onclick="exportCSV()" class="nav-btn" style="margin-top:10px; width:100%; border:1px solid var(--primary-color); padding:5px 0;">💾 ' + t('download_csv') + '</button>';
+            html += '<button onclick="exportCSV()" class="nav-btn" style="margin-top:10px; width:100%; border:1px solid var(--primary-color); padding:5px 0;"><i class="fa-solid fa-file-csv"></i> ' + t('download_csv') + '</button>';
         }
         document.getElementById('capas_panel').innerHTML = html;
     }
@@ -221,7 +221,7 @@
         L.marker(poly.getBounds().getCenter(), {icon: L.divIcon({html: centerHtml, className: '', iconSize: [0,0]})}).addTo(newGrp);
 
         var popupHtml = '<div style="font-family:var(--font-main); font-size:11px; min-width:200px;">';
-        popupHtml += '<h4 style="margin:0 0 5px 0; color:var(--primary-color); border-bottom:1px solid var(--glass-border); padding-bottom:5px;">📐 ' + name + '</h4>';
+        popupHtml += '<h4 style="margin:0 0 5px 0; color:var(--primary-color); border-bottom:1px solid var(--glass-border); padding-bottom:5px;"><i class="fa-solid fa-draw-polygon"></i> ' + name + '</h4>';
         popupHtml += '<b>' + t('area') + '</b>' + areaKm2 + ' km²<br><b>' + t('perim') + '</b>' + perimKm + ' km<br><br>';
         popupHtml += '<div style="max-height:120px; overflow-y:auto;">';
         measurePts.forEach(function(pt, i) {
@@ -272,7 +272,7 @@
 
             document.getElementById('theme_toggle').addEventListener('click', function() {
                 isDark = !isDark; document.body.classList.toggle('dark-mode', isDark);
-                document.getElementById('theme_icon').innerText = isDark ? '🌙' : '☀️';
+                document.getElementById('theme_icon').innerHTML = isDark ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
                 document.getElementById('theme_icon').style.filter = isDark ? 'none' : 'grayscale(100%)';
                 if (baseTile) baseTile.setUrl(isDark ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png?key=cb1_472b_1_07b0ad5df523954aaa77d469' : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?key=cb1_472b_1_07b0ad5df523954aaa77d469');
                 updateThemeCache(); renderMapElements();
@@ -323,10 +323,10 @@
                 clearLines();
                 if (tops.length > 0) globalNearestCoords = L.latLng(tops[0].lat, tops[0].lon);
 
-                var tHtml = '<h4 style="margin:0 0 12px 0; font-size:13px; font-weight:600; text-align:center;">📍 ' + t('connections') + '</h4>' +
+                var tHtml = '<h4 style="margin:0 0 12px 0; font-size:13px; font-weight:600; text-align:center;"><i class="fa-solid fa-location-dot"></i> ' + t('connections') + '</h4>' +
                             '<table style="width:100%; border-collapse:collapse; font-size:11px; text-align:left;">' +
                             '<tr style="border-bottom:1px solid var(--primary-color);"><th style="padding-bottom:5px;">' + t('point_col') + '</th><th style="padding-bottom:5px;">' + t('distance') + '</th><th style="padding-bottom:5px;">' + t('network') + '</th><th style="padding-bottom:5px;">' + t('route') + '</th></tr>' +
-                            '<tr class="stations-table-row" onclick="goToLocation(' + uLat + ',' + uLon + ',true)"><td style="padding:6px 2px;">👤 ' + t('me') + '</td><td style="color:var(--primary-color);font-weight:bold;">0 km</td><td style="color:var(--text-muted);">-</td><td>-</td></tr>';
+                            '<tr class="stations-table-row" onclick="goToLocation(' + uLat + ',' + uLon + ',true)"><td style="padding:6px 2px;"><i class="fa-solid fa-user"></i> ' + t('me') + '</td><td style="color:var(--primary-color);font-weight:bold;">0 km</td><td style="color:var(--text-muted);">-</td><td>-</td></tr>';
 
                 tops.forEach(function(st) {
                     var stCoords = L.latLng(st.lat, st.lon);
@@ -339,8 +339,8 @@
 
                     var mapsUrl = 'https://www.google.com/maps/dir/?api=1&origin=' + uLat + ',' + uLon + '&destination=' + st.lat + ',' + st.lon + '&travelmode=driving';
                     tHtml += '<tr class="stations-table-row" onclick="goToLocation(' + st.lat + ',' + st.lon + ',false)">' +
-                             '<td style="padding:6px 2px;">📡 ' + st.name + '</td><td>' + dKm + ' km</td><td style="color:var(--text-muted);">' + st.red + '</td>' +
-                             '<td><a href="' + mapsUrl + '" target="_blank" title="Google Maps" style="text-decoration:none;font-size:14px;">🚗</a></td></tr>';
+                             '<td style="padding:6px 2px;"><i class="fa-solid fa-tower-broadcast"></i> ' + st.name + '</td><td>' + dKm + ' km</td><td style="color:var(--text-muted);">' + st.red + '</td>' +
+                             '<td><a href="' + mapsUrl + '" target="_blank" title="Google Maps" style="text-decoration:none;font-size:14px;"><i class="fa-solid fa-car"></i></a></td></tr>';
                 });
 
                 tHtml += '</table>';
@@ -363,7 +363,7 @@
                 if (isTracking) {
                     navigator.geolocation.clearWatch(watchId);
                     isTracking = false; // <--- AQUÍ SE APAGA CORRECTAMENTE
-                    btnText.innerText = t('radar'); btnIcon.innerText = "📍";
+                    btnText.innerText = t('radar'); btnIcon.innerHTML = '<i class="fa-solid fa-location-dot"></i>';
                     gpsPanel.style.display = 'none'; tableContainer.style.display = 'none';
                     this.style.background = 'var(--primary-color)'; this.style.color = 'white';
                     if (userMarker) { ml.removeLayer(userMarker); userMarker = null; }
@@ -372,7 +372,7 @@
                     isTracking = true; // <--- EL BUG ESTABA AQUÍ (faltaba encenderlo)
                     document.getElementById('num_stations').value = "1"; // Auto-conecta a 1 estación al iniciar
 
-                    btnText.innerText = t('stop_radar'); btnIcon.innerText = "🛑";
+                    btnText.innerText = t('stop_radar'); btnIcon.innerHTML = '<i class="fa-solid fa-stop"></i>';
                     this.style.background = 'var(--glass-bg)'; this.style.color = 'var(--text-main)';
                     var firstLock = true;
 
@@ -414,7 +414,7 @@
                         loader.style.display = 'none';
                         alert(t('gps_error_msg'));
                         isTracking = false;
-                        btnText.innerText = t('radar'); gpsPanel.style.display = 'none'; tableContainer.style.display = 'none';
+                        btnText.innerText = t('radar'); btnIcon.innerHTML = '<i class="fa-solid fa-location-dot"></i>'; gpsPanel.style.display = 'none'; tableContainer.style.display = 'none';
                     }, { enableHighAccuracy: true, maximumAge: 3000, timeout: 10000 });
                 }
             });
